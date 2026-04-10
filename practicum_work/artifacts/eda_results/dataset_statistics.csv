@@ -1,0 +1,4 @@
+num_images,num_masks,valid_pairs,missing_masks,missing_images,size_mismatch,dataset
+200,200,200,0,0,0,train
+120,120,120,0,0,0,val
+120,120,120,0,0,0,test

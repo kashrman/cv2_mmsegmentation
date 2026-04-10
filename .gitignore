@@ -1,0 +1,84 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# uv files
+uv.lock
+
+# datasets
+data/*
+
+data/src/img/train/*
+data/src/img/test/*
+data/src/img/val/*
+data/src/labels/train/*
+data/src/labels/test/*
+data/src/labels/val/*
+
+data/cleared/img/train/*
+data/cleared/img/test/*
+data/cleared/img/val/*
+data/cleared/labels/train/*
+data/cleared/labels/test/*
+data/cleared/labels/val/*
+
+data/err/img/train/*
+data/err/img/test/*
+data/err/img/val/*
+data/err/labels/train/*
+data/err/labels/test/*
+data/err/labels/val/*
+
+data/add/img/train/*
+data/add/img/test/*
+data/add/img/val/*
+data/add/labels/train/*
+data/add/labels/test/*
+data/add/labels/val/*
+data/add/yolo_sam_labels/train/*
+data/add/yolo_sam_labels/test/*
+data/add/yolo_sam_labels/val/*
+
+# work data of yolo sam 
+practicum_work/src/eda/*pt
+
+# mmsegmentation - save only not original configs
+mmsegmentation/*
+!mmsegmentation/configs/
+mmsegmentation/configs/*
+!mmsegmentation/mmseg/
+mmsegmentation/mmseg/*
+!mmsegmentation/mmseg/datasets/
+mmsegmentation/mmseg/datasets/*
+
+# регистрация нового набора данных
+# создать новый класс
+!mmsegmentation/mmseg/datasets/animals_dataset.py
+# зарегистрировать этот класс
+!mmsegmentation/mmseg/datasets/__init__.py
+!mmsegmentation/mmseg/utils/
+mmsegmentation/mmseg/utils/*
+# описать имена и палитру
+!mmsegmentation/mmseg/utils/class_names.py
+
+# результаты обучения
+practicum_work/artifacts/mmsegmentation_work_dir
+
+# результаты инференса
+practicum_work/artifacts/inference_final/val_res/vis_data/vis_image/*
+!practicum_work/artifacts/inference_final/val_res/vis_data/vis_image/test_000000032949_4995.jpg_17.png  
+!practicum_work/artifacts/inference_final/val_res/vis_data/vis_image/test_000000070714_6320.jpg_27.png
+!practicum_work/artifacts/inference_final/val_res/vis_data/vis_image/test_000000037907_29.jpg_19.png
+!practicum_work/artifacts/inference_final/val_res/vis_data/vis_image/test_000000108908_6126.jpg_45.png
+practicum_work/artifacts/inference_final/test_res/vis_data/vis_image/*
+!practicum_work/artifacts/inference_final/test_res/vis_data/vis_image/test_000000287567_4976.jpg_16.png  
+!practicum_work/artifacts/inference_final/test_res/vis_data/vis_image/test_000000357542_1234.jpg_36.png  
+!practicum_work/artifacts/inference_final/test_res/vis_data/vis_image/test_000000408008_1937.jpg_65.png
+!practicum_work/artifacts/inference_final/test_res/vis_data/vis_image/test_000000522225_5983.jpg_102.png  

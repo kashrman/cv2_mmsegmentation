@@ -1,0 +1,2313 @@
+2026/04/10 16:09:28 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.10.16 (main, Jan 14 2025, 22:49:19) [Clang 19.1.6 ]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 599704120
+    GPU 0: NVIDIA A10
+    CUDA_HOME: /usr
+    NVCC: Cuda compilation tools, release 12.8, V12.8.93
+    GCC: x86_64-alt-linux-gcc (GCC) 13.2.1 20240128 (ALT Sisyphus 13.2.1-alt3)
+    PyTorch: 2.4.0+cu121
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2022.2-Product Build 20220804 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.4.2 (Git Hash 1137e04ec0b5251ca2b4400a4fd3c667ce843d67)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 12.1
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 90.1  (built against CUDA 12.4)
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=2.4.0, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+    TorchVision: 0.19.0+cu121
+    OpenCV: 4.11.0
+    MMEngine: 0.10.7
+
+Runtime environment:
+    cudnn_benchmark: True
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 599704120
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2026/04/10 16:09:28 - mmengine - INFO - Config:
+batch_size = 8
+data_preprocessor = dict(
+    bgr_to_rgb=True,
+    mean=[
+        123.675,
+        116.28,
+        103.53,
+    ],
+    pad_val=0,
+    seg_pad_val=255,
+    std=[
+        58.395,
+        57.12,
+        57.375,
+    ],
+    type='SegDataPreProcessor')
+data_root = 'data/cleared_final'
+dataset_type = 'AnimalsDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        by_epoch=True,
+        interval=50,
+        rule='greater',
+        save_best='mDice',
+        type='CheckpointHook'),
+    logger=dict(interval=100, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    visualization=dict(draw=True, interval=100, type='SegVisualizationHook'))
+default_scope = 'mmseg'
+env_cfg = dict(
+    cudnn_benchmark=True,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+epoch_num = 500
+launcher = 'none'
+load_from = 'practicum_work/artifacts/mmsegmentation_work_dir/best_mDice_epoch_segform.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=False)
+model = dict(
+    auxiliary_head=None,
+    backbone=dict(
+        attn_drop_rate=0.0,
+        drop_path_rate=0.1,
+        drop_rate=0.0,
+        embed_dims=32,
+        in_channels=3,
+        mlp_ratio=4,
+        num_heads=[
+            1,
+            2,
+            5,
+            8,
+        ],
+        num_layers=[
+            2,
+            2,
+            2,
+            2,
+        ],
+        num_stages=4,
+        out_indices=(
+            0,
+            1,
+            2,
+            3,
+        ),
+        patch_sizes=[
+            7,
+            3,
+            3,
+            3,
+        ],
+        qkv_bias=True,
+        sr_ratios=[
+            8,
+            4,
+            2,
+            1,
+        ],
+        type='MixVisionTransformer'),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        pad_val=0,
+        seg_pad_val=255,
+        size=(
+            256,
+            256,
+        ),
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='SegDataPreProcessor'),
+    decode_head=dict(
+        align_corners=False,
+        channels=256,
+        dropout_ratio=0.1,
+        in_channels=[
+            32,
+            64,
+            160,
+            256,
+        ],
+        in_index=[
+            0,
+            1,
+            2,
+            3,
+        ],
+        loss_decode=[
+            dict(
+                class_weight=[
+                    0.01,
+                    1.0,
+                    1.0,
+                ],
+                gamma=3.0,
+                loss_name='loss_focal',
+                loss_weight=3.0,
+                type='FocalLoss',
+                use_sigmoid=True),
+            dict(loss_name='loss_dice', loss_weight=1.0, type='DiceLoss'),
+        ],
+        norm_cfg=dict(requires_grad=True, type='BN'),
+        num_classes=3,
+        type='SegformerHead'),
+    pretrained=None,
+    test_cfg=dict(mode='whole'),
+    train_cfg=dict(),
+    type='EncoderDecoder')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+num_workers = 4
+optim_wrapper = dict(
+    optimizer=dict(lr=0.0001, type='AdamW', weight_decay=0.2),
+    type='OptimWrapper')
+optimizer = dict(lr=0.0001, type='AdamW', weight_decay=0.2)
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=500,
+        eta_min=1e-07,
+        power=0.8,
+        type='PolyLR'),
+]
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        data_prefix=dict(img_path='img/test', seg_map_path='labels/test'),
+        data_root='data/cleared_final',
+        img_suffix='.jpg',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='LoadAnnotations'),
+            dict(type='PackSegInputs'),
+        ],
+        seg_map_suffix='.png',
+        type='AnimalsDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_dataset = dict(
+    data_prefix=dict(img_path='img/test', seg_map_path='labels/test'),
+    data_root='data/cleared_final',
+    img_suffix='.jpg',
+    pipeline=[
+        dict(type='LoadImageFromFile'),
+        dict(type='LoadAnnotations'),
+        dict(type='PackSegInputs'),
+    ],
+    seg_map_suffix='.png',
+    type='AnimalsDataset')
+test_evaluator = dict(
+    classwise=True, iou_metrics=[
+        'mDice',
+    ], num_classes=3, type='IoUMetric')
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='LoadAnnotations'),
+    dict(type='PackSegInputs'),
+]
+train_cfg = dict(max_epochs=500, type='EpochBasedTrainLoop')
+train_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        data_prefix=dict(img_path='img/train', seg_map_path='labels/train'),
+        data_root='data/cleared_final',
+        img_suffix='.jpg',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='LoadAnnotations'),
+            dict(direction='horizontal', prob=0.3, type='RandomFlip'),
+            dict(degree=(
+                -30,
+                30,
+            ), prob=0.3, type='RandomRotate'),
+            dict(
+                transforms=[
+                    dict(num_steps=10, p=0.1, type='GridDistortion'),
+                ],
+                type='Albu'),
+            dict(type='PackSegInputs'),
+        ],
+        seg_map_suffix='.png',
+        type='AnimalsDataset'),
+    drop_last=True,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_dataset = dict(
+    data_prefix=dict(img_path='img/train', seg_map_path='labels/train'),
+    data_root='data/cleared_final',
+    img_suffix='.jpg',
+    pipeline=[
+        dict(type='LoadImageFromFile'),
+        dict(type='LoadAnnotations'),
+        dict(direction='horizontal', prob=0.3, type='RandomFlip'),
+        dict(degree=(
+            -30,
+            30,
+        ), prob=0.3, type='RandomRotate'),
+        dict(
+            transforms=[
+                dict(num_steps=10, p=0.1, type='GridDistortion'),
+            ],
+            type='Albu'),
+        dict(type='PackSegInputs'),
+    ],
+    seg_map_suffix='.png',
+    type='AnimalsDataset')
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='LoadAnnotations'),
+    dict(direction='horizontal', prob=0.3, type='RandomFlip'),
+    dict(degree=(
+        -30,
+        30,
+    ), prob=0.3, type='RandomRotate'),
+    dict(
+        transforms=[
+            dict(num_steps=10, p=0.1, type='GridDistortion'),
+        ],
+        type='Albu'),
+    dict(type='PackSegInputs'),
+]
+tta_model = dict(type='SegTTAModel')
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        data_prefix=dict(img_path='img/val', seg_map_path='labels/val'),
+        data_root='data/cleared_final',
+        img_suffix='.jpg',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='LoadAnnotations'),
+            dict(type='PackSegInputs'),
+        ],
+        seg_map_suffix='.png',
+        type='AnimalsDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_dataset = dict(
+    data_prefix=dict(img_path='img/val', seg_map_path='labels/val'),
+    data_root='data/cleared_final',
+    img_suffix='.jpg',
+    pipeline=[
+        dict(type='LoadImageFromFile'),
+        dict(type='LoadAnnotations'),
+        dict(type='PackSegInputs'),
+    ],
+    seg_map_suffix='.png',
+    type='AnimalsDataset')
+val_evaluator = dict(
+    classwise=True, iou_metrics=[
+        'mDice',
+    ], num_classes=3, type='IoUMetric')
+val_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='LoadAnnotations'),
+    dict(type='PackSegInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='SegLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = 'practicum_work/artifacts/mmsegmentation_work_dir'
+
+2026/04/10 16:09:29 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2026/04/10 16:09:29 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2026/04/10 16:09:30 - mmengine - WARNING - The prefix is not set in metric class IoUMetric.
+Name of parameter - Initialization information
+
+backbone.layers.0.0.projection.weight - torch.Size([32, 3, 7, 7]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.0.projection.bias - torch.Size([32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.0.norm.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.0.norm.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.norm1.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.norm1.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.attn.attn.in_proj_weight - torch.Size([96, 32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.attn.attn.in_proj_bias - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.attn.attn.out_proj.weight - torch.Size([32, 32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.attn.attn.out_proj.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.attn.sr.weight - torch.Size([32, 32, 8, 8]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.attn.sr.bias - torch.Size([32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.attn.norm.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.attn.norm.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.norm2.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.norm2.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.0.ffn.layers.0.weight - torch.Size([128, 32, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.ffn.layers.0.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.ffn.layers.1.weight - torch.Size([128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.ffn.layers.1.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.ffn.layers.4.weight - torch.Size([32, 128, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.0.ffn.layers.4.bias - torch.Size([32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.norm1.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.norm1.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.attn.attn.in_proj_weight - torch.Size([96, 32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.attn.attn.in_proj_bias - torch.Size([96]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.attn.attn.out_proj.weight - torch.Size([32, 32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.attn.attn.out_proj.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.attn.sr.weight - torch.Size([32, 32, 8, 8]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.attn.sr.bias - torch.Size([32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.attn.norm.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.attn.norm.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.norm2.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.norm2.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.1.1.ffn.layers.0.weight - torch.Size([128, 32, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.ffn.layers.0.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.ffn.layers.1.weight - torch.Size([128, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.ffn.layers.1.bias - torch.Size([128]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.ffn.layers.4.weight - torch.Size([32, 128, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.1.1.ffn.layers.4.bias - torch.Size([32]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.0.2.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.0.2.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.0.projection.weight - torch.Size([64, 32, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.0.projection.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.0.norm.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.0.norm.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.norm1.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.norm1.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.attn.attn.in_proj_weight - torch.Size([192, 64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.attn.attn.in_proj_bias - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.attn.attn.out_proj.weight - torch.Size([64, 64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.attn.attn.out_proj.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.attn.sr.weight - torch.Size([64, 64, 4, 4]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.attn.sr.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.attn.norm.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.attn.norm.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.norm2.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.norm2.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.0.ffn.layers.0.weight - torch.Size([256, 64, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.ffn.layers.0.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.ffn.layers.1.weight - torch.Size([256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.ffn.layers.1.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.ffn.layers.4.weight - torch.Size([64, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.0.ffn.layers.4.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.norm1.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.norm1.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.attn.attn.in_proj_weight - torch.Size([192, 64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.attn.attn.in_proj_bias - torch.Size([192]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.attn.attn.out_proj.weight - torch.Size([64, 64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.attn.attn.out_proj.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.attn.sr.weight - torch.Size([64, 64, 4, 4]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.attn.sr.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.attn.norm.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.attn.norm.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.norm2.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.norm2.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.1.1.ffn.layers.0.weight - torch.Size([256, 64, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.ffn.layers.0.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.ffn.layers.1.weight - torch.Size([256, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.ffn.layers.1.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.ffn.layers.4.weight - torch.Size([64, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.1.1.ffn.layers.4.bias - torch.Size([64]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.1.2.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.1.2.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.0.projection.weight - torch.Size([160, 64, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.0.projection.bias - torch.Size([160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.0.norm.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.0.norm.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.norm1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.norm1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.attn.attn.in_proj_weight - torch.Size([480, 160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.attn.attn.in_proj_bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.attn.attn.out_proj.weight - torch.Size([160, 160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.attn.attn.out_proj.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.attn.sr.weight - torch.Size([160, 160, 2, 2]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.attn.sr.bias - torch.Size([160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.attn.norm.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.attn.norm.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.norm2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.norm2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.0.ffn.layers.0.weight - torch.Size([640, 160, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.ffn.layers.0.bias - torch.Size([640]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.ffn.layers.1.weight - torch.Size([640, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.ffn.layers.1.bias - torch.Size([640]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.ffn.layers.4.weight - torch.Size([160, 640, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.0.ffn.layers.4.bias - torch.Size([160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.norm1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.norm1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.attn.attn.in_proj_weight - torch.Size([480, 160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.attn.attn.in_proj_bias - torch.Size([480]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.attn.attn.out_proj.weight - torch.Size([160, 160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.attn.attn.out_proj.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.attn.sr.weight - torch.Size([160, 160, 2, 2]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.attn.sr.bias - torch.Size([160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.attn.norm.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.attn.norm.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.norm2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.norm2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.1.1.ffn.layers.0.weight - torch.Size([640, 160, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.ffn.layers.0.bias - torch.Size([640]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.ffn.layers.1.weight - torch.Size([640, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.ffn.layers.1.bias - torch.Size([640]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.ffn.layers.4.weight - torch.Size([160, 640, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.1.1.ffn.layers.4.bias - torch.Size([160]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.2.2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.2.2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.0.projection.weight - torch.Size([256, 160, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.0.projection.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.0.norm.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.0.norm.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.norm1.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.norm1.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.attn.attn.in_proj_weight - torch.Size([768, 256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.attn.attn.in_proj_bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.attn.attn.out_proj.weight - torch.Size([256, 256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.0.attn.attn.out_proj.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.norm2.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.norm2.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.0.ffn.layers.0.weight - torch.Size([1024, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.0.ffn.layers.0.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.0.ffn.layers.1.weight - torch.Size([1024, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.0.ffn.layers.1.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.0.ffn.layers.4.weight - torch.Size([256, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.0.ffn.layers.4.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.norm1.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.norm1.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.attn.attn.in_proj_weight - torch.Size([768, 256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.attn.attn.in_proj_bias - torch.Size([768]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.attn.attn.out_proj.weight - torch.Size([256, 256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.attn.attn.out_proj.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.norm2.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.norm2.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.1.1.ffn.layers.0.weight - torch.Size([1024, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.ffn.layers.0.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.ffn.layers.1.weight - torch.Size([1024, 1, 3, 3]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.ffn.layers.1.bias - torch.Size([1024]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.ffn.layers.4.weight - torch.Size([256, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.1.1.ffn.layers.4.bias - torch.Size([256]): 
+Initialized by user-defined `init_weights` in MixVisionTransformer  
+
+backbone.layers.3.2.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+backbone.layers.3.2.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.conv_seg.weight - torch.Size([3, 256, 1, 1]): 
+NormalInit: mean=0, std=0.01, bias=0 
+
+decode_head.conv_seg.bias - torch.Size([3]): 
+NormalInit: mean=0, std=0.01, bias=0 
+
+decode_head.convs.0.conv.weight - torch.Size([256, 32, 1, 1]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.0.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.0.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.1.conv.weight - torch.Size([256, 64, 1, 1]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.2.conv.weight - torch.Size([256, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.3.conv.weight - torch.Size([256, 256, 1, 1]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.3.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.convs.3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.fusion_conv.conv.weight - torch.Size([256, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+decode_head.fusion_conv.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+
+decode_head.fusion_conv.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of EncoderDecoder  
+2026/04/10 16:09:30 - mmengine - INFO - Load checkpoint from practicum_work/artifacts/mmsegmentation_work_dir/best_mDice_epoch_segform.pth
+2026/04/10 16:09:30 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2026/04/10 16:09:30 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2026/04/10 16:09:30 - mmengine - INFO - Checkpoints will be saved to /data_12/gpudev/kashnitskii/yx/s6_project/practicum_work/artifacts/mmsegmentation_work_dir.
+2026/04/10 16:09:34 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:34 - mmengine - INFO - Iter(train) [   38/19000]  lr: 1.0000e-04  eta: 0:37:55  time: 0.0755  data_time: 0.0105  memory: 9406  loss: 0.0683  decode.loss_focal: 0.0188  decode.loss_dice: 0.0495  decode.acc_seg: 95.8178
+2026/04/10 16:09:35 - mmengine - INFO - per class results:
+2026/04/10 16:09:35 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.66 | 98.06 |
+|    cat     | 42.68 | 29.87 |
+|    dog     | 53.42 | 62.12 |
++------------+-------+-------+
+2026/04/10 16:09:35 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0800  mDice: 64.2500  mAcc: 63.3500  data_time: 0.0165  time: 0.0320
+2026/04/10 16:09:35 - mmengine - INFO - The best checkpoint with 64.2500 mDice at 1 epoch is saved to best_mDice_epoch_1.pth.
+2026/04/10 16:09:38 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:38 - mmengine - INFO - Iter(train) [   76/19000]  lr: 9.9840e-05  eta: 0:30:06  time: 0.0725  data_time: 0.0097  memory: 866  loss: 0.0445  decode.loss_focal: 0.0070  decode.loss_dice: 0.0375  decode.acc_seg: 98.2758
+2026/04/10 16:09:38 - mmengine - INFO - per class results:
+2026/04/10 16:09:38 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.62 | 98.24 |
+|    cat     | 36.62 | 24.39 |
+|    dog     | 52.67 | 61.37 |
++------------+-------+-------+
+2026/04/10 16:09:38 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8500  mDice: 61.9700  mAcc: 61.3300  data_time: 0.0098  time: 0.0255
+2026/04/10 16:09:41 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:41 - mmengine - INFO - Iter(train) [  114/19000]  lr: 9.9680e-05  eta: 0:27:30  time: 0.0706  data_time: 0.0098  memory: 866  loss: 0.0535  decode.loss_focal: 0.0075  decode.loss_dice: 0.0459  decode.acc_seg: 94.0707
+2026/04/10 16:09:41 - mmengine - INFO - per class results:
+2026/04/10 16:09:41 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 | 98.27 |
+|    cat     | 40.69 | 28.16 |
+|    dog     | 53.42 | 61.09 |
++------------+-------+-------+
+2026/04/10 16:09:41 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1200  mDice: 63.6100  mAcc: 62.5100  data_time: 0.0090  time: 0.0229
+2026/04/10 16:09:44 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:44 - mmengine - INFO - Iter(train) [  152/19000]  lr: 9.9519e-05  eta: 0:25:39  time: 0.0689  data_time: 0.0089  memory: 866  loss: 0.0438  decode.loss_focal: 0.0071  decode.loss_dice: 0.0367  decode.acc_seg: 97.6905
+2026/04/10 16:09:44 - mmengine - INFO - per class results:
+2026/04/10 16:09:44 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.76 |  98.1 |
+|    cat     | 44.19 | 32.64 |
+|    dog     | 52.27 | 58.24 |
++------------+-------+-------+
+2026/04/10 16:09:44 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1400  mDice: 64.4000  mAcc: 62.9900  data_time: 0.0105  time: 0.0261
+2026/04/10 16:09:44 - mmengine - INFO - The previous best checkpoint /data_12/gpudev/kashnitskii/yx/s6_project/practicum_work/artifacts/mmsegmentation_work_dir/best_mDice_epoch_1.pth is removed
+2026/04/10 16:09:44 - mmengine - INFO - The best checkpoint with 64.4000 mDice at 4 epoch is saved to best_mDice_epoch_4.pth.
+2026/04/10 16:09:47 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:47 - mmengine - INFO - Iter(train) [  190/19000]  lr: 9.9359e-05  eta: 0:24:28  time: 0.0616  data_time: 0.0075  memory: 866  loss: 0.0419  decode.loss_focal: 0.0050  decode.loss_dice: 0.0369  decode.acc_seg: 97.4701
+2026/04/10 16:09:47 - mmengine - INFO - per class results:
+2026/04/10 16:09:47 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.68 | 98.07 |
+|    cat     | 42.22 |  30.5 |
+|    dog     |  53.9 | 60.72 |
++------------+-------+-------+
+2026/04/10 16:09:47 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0800  mDice: 64.2700  mAcc: 63.1000  data_time: 0.0253  time: 0.0396
+2026/04/10 16:09:50 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:50 - mmengine - INFO - Iter(train) [  228/19000]  lr: 9.9198e-05  eta: 0:24:11  time: 0.0728  data_time: 0.0096  memory: 866  loss: 0.0477  decode.loss_focal: 0.0067  decode.loss_dice: 0.0410  decode.acc_seg: 97.1872
+2026/04/10 16:09:50 - mmengine - INFO - per class results:
+2026/04/10 16:09:50 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.66 | 98.21 |
+|    cat     | 38.95 | 26.54 |
+|    dog     | 53.78 | 62.15 |
++------------+-------+-------+
+2026/04/10 16:09:50 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0000  mDice: 63.1300  mAcc: 62.3000  data_time: 0.0096  time: 0.0241
+2026/04/10 16:09:53 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:53 - mmengine - INFO - Iter(train) [  266/19000]  lr: 9.9038e-05  eta: 0:23:33  time: 0.0730  data_time: 0.0102  memory: 866  loss: 0.0424  decode.loss_focal: 0.0051  decode.loss_dice: 0.0373  decode.acc_seg: 98.5558
+2026/04/10 16:09:53 - mmengine - INFO - per class results:
+2026/04/10 16:09:53 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.65 | 98.14 |
+|    cat     | 41.72 | 30.35 |
+|    dog     | 52.43 | 57.55 |
++------------+-------+-------+
+2026/04/10 16:09:53 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0000  mDice: 63.6000  mAcc: 62.0100  data_time: 0.0107  time: 0.0259
+2026/04/10 16:09:56 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:56 - mmengine - INFO - Iter(train) [  304/19000]  lr: 9.8877e-05  eta: 0:23:20  time: 0.0685  data_time: 0.0091  memory: 866  loss: 0.0355  decode.loss_focal: 0.0044  decode.loss_dice: 0.0311  decode.acc_seg: 97.9077
+2026/04/10 16:09:56 - mmengine - INFO - per class results:
+2026/04/10 16:09:56 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.65 | 98.29 |
+|    cat     | 38.48 | 26.71 |
+|    dog     | 53.69 | 59.94 |
++------------+-------+-------+
+2026/04/10 16:09:56 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9900  mDice: 62.9400  mAcc: 61.6500  data_time: 0.0101  time: 0.0251
+2026/04/10 16:09:59 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:09:59 - mmengine - INFO - Iter(train) [  342/19000]  lr: 9.8717e-05  eta: 0:22:55  time: 0.0723  data_time: 0.0100  memory: 866  loss: 0.0443  decode.loss_focal: 0.0060  decode.loss_dice: 0.0383  decode.acc_seg: 98.3999
+2026/04/10 16:09:59 - mmengine - INFO - per class results:
+2026/04/10 16:09:59 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 | 97.96 |
+|    cat     | 44.44 | 33.61 |
+|    dog     | 51.95 | 57.35 |
++------------+-------+-------+
+2026/04/10 16:09:59 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0400  mDice: 64.3600  mAcc: 62.9700  data_time: 0.0099  time: 0.0251
+2026/04/10 16:10:02 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:02 - mmengine - INFO - Iter(train) [  380/19000]  lr: 9.8556e-05  eta: 0:22:42  time: 0.0709  data_time: 0.0102  memory: 866  loss: 0.0385  decode.loss_focal: 0.0052  decode.loss_dice: 0.0334  decode.acc_seg: 95.5264
+2026/04/10 16:10:02 - mmengine - INFO - per class results:
+2026/04/10 16:10:02 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.78 |  97.9 |
+|    cat     | 44.02 | 33.38 |
+|    dog     | 53.19 | 60.15 |
++------------+-------+-------+
+2026/04/10 16:10:02 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0900  mDice: 64.6600  mAcc: 63.8100  data_time: 0.0097  time: 0.0241
+2026/04/10 16:10:02 - mmengine - INFO - The previous best checkpoint /data_12/gpudev/kashnitskii/yx/s6_project/practicum_work/artifacts/mmsegmentation_work_dir/best_mDice_epoch_4.pth is removed
+2026/04/10 16:10:02 - mmengine - INFO - The best checkpoint with 64.6600 mDice at 10 epoch is saved to best_mDice_epoch_10.pth.
+2026/04/10 16:10:05 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:05 - mmengine - INFO - Iter(train) [  418/19000]  lr: 9.8395e-05  eta: 0:22:28  time: 0.0693  data_time: 0.0085  memory: 866  loss: 0.0336  decode.loss_focal: 0.0037  decode.loss_dice: 0.0298  decode.acc_seg: 97.3947
+2026/04/10 16:10:05 - mmengine - INFO - per class results:
+2026/04/10 16:10:05 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 |  98.3 |
+|    cat     | 42.85 |  31.2 |
+|    dog     | 51.96 | 55.78 |
++------------+-------+-------+
+2026/04/10 16:10:05 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1200  mDice: 63.8400  mAcc: 61.7600  data_time: 0.0094  time: 0.0252
+2026/04/10 16:10:08 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:08 - mmengine - INFO - Iter(train) [  456/19000]  lr: 9.8234e-05  eta: 0:22:05  time: 0.0548  data_time: 0.0077  memory: 866  loss: 0.0376  decode.loss_focal: 0.0048  decode.loss_dice: 0.0328  decode.acc_seg: 97.8239
+2026/04/10 16:10:08 - mmengine - INFO - per class results:
+2026/04/10 16:10:08 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 | 98.28 |
+|    cat     | 40.75 | 28.74 |
+|    dog     | 53.76 | 60.19 |
++------------+-------+-------+
+2026/04/10 16:10:08 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1300  mDice: 63.7500  mAcc: 62.4100  data_time: 0.0091  time: 0.0237
+2026/04/10 16:10:10 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:10 - mmengine - INFO - Iter(train) [  494/19000]  lr: 9.8073e-05  eta: 0:21:53  time: 0.0574  data_time: 0.0077  memory: 866  loss: 0.0384  decode.loss_focal: 0.0046  decode.loss_dice: 0.0339  decode.acc_seg: 97.9843
+2026/04/10 16:10:11 - mmengine - INFO - per class results:
+2026/04/10 16:10:11 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.77 | 98.21 |
+|    cat     | 42.16 | 30.65 |
+|    dog     | 52.36 | 58.07 |
++------------+-------+-------+
+2026/04/10 16:10:11 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1000  mDice: 63.7600  mAcc: 62.3100  data_time: 0.0241  time: 0.0398
+2026/04/10 16:10:13 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:13 - mmengine - INFO - Iter(train) [  532/19000]  lr: 9.7912e-05  eta: 0:21:42  time: 0.0664  data_time: 0.0091  memory: 866  loss: 0.0429  decode.loss_focal: 0.0059  decode.loss_dice: 0.0370  decode.acc_seg: 98.2295
+2026/04/10 16:10:14 - mmengine - INFO - per class results:
+2026/04/10 16:10:14 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.89 | 97.86 |
+|    cat     | 47.55 | 37.57 |
+|    dog     | 53.28 | 59.33 |
++------------+-------+-------+
+2026/04/10 16:10:14 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.3000  mDice: 65.9100  mAcc: 64.9200  data_time: 0.0079  time: 0.0226
+2026/04/10 16:10:14 - mmengine - INFO - The previous best checkpoint /data_12/gpudev/kashnitskii/yx/s6_project/practicum_work/artifacts/mmsegmentation_work_dir/best_mDice_epoch_10.pth is removed
+2026/04/10 16:10:14 - mmengine - INFO - The best checkpoint with 65.9100 mDice at 14 epoch is saved to best_mDice_epoch_14.pth.
+2026/04/10 16:10:16 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:16 - mmengine - INFO - Iter(train) [  570/19000]  lr: 9.7751e-05  eta: 0:21:29  time: 0.0573  data_time: 0.0074  memory: 866  loss: 0.0363  decode.loss_focal: 0.0051  decode.loss_dice: 0.0312  decode.acc_seg: 98.5210
+2026/04/10 16:10:17 - mmengine - INFO - per class results:
+2026/04/10 16:10:17 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.79 | 98.17 |
+|    cat     | 46.42 | 35.83 |
+|    dog     | 52.91 | 55.71 |
++------------+-------+-------+
+2026/04/10 16:10:17 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.3000  mDice: 65.3700  mAcc: 63.2400  data_time: 0.0100  time: 0.0272
+2026/04/10 16:10:19 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:19 - mmengine - INFO - Iter(train) [  608/19000]  lr: 9.7590e-05  eta: 0:21:19  time: 0.0576  data_time: 0.0076  memory: 866  loss: 0.0303  decode.loss_focal: 0.0042  decode.loss_dice: 0.0261  decode.acc_seg: 98.6472
+2026/04/10 16:10:20 - mmengine - INFO - per class results:
+2026/04/10 16:10:20 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.83 | 98.27 |
+|    cat     | 40.82 | 29.42 |
+|    dog     |  51.4 | 57.58 |
++------------+-------+-------+
+2026/04/10 16:10:20 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0500  mDice: 63.0200  mAcc: 61.7600  data_time: 0.0091  time: 0.0245
+2026/04/10 16:10:22 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:22 - mmengine - INFO - Iter(train) [  646/19000]  lr: 9.7429e-05  eta: 0:21:08  time: 0.0623  data_time: 0.0091  memory: 866  loss: 0.0326  decode.loss_focal: 0.0039  decode.loss_dice: 0.0288  decode.acc_seg: 98.1164
+2026/04/10 16:10:22 - mmengine - INFO - per class results:
+2026/04/10 16:10:22 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.84 | 97.93 |
+|    cat     | 43.81 | 32.18 |
+|    dog     |  53.0 | 62.24 |
++------------+-------+-------+
+2026/04/10 16:10:22 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1300  mDice: 64.5500  mAcc: 64.1200  data_time: 0.0088  time: 0.0237
+2026/04/10 16:10:24 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:24 - mmengine - INFO - Iter(train) [  684/19000]  lr: 9.7268e-05  eta: 0:20:51  time: 0.0610  data_time: 0.0077  memory: 866  loss: 0.0314  decode.loss_focal: 0.0040  decode.loss_dice: 0.0274  decode.acc_seg: 96.4886
+2026/04/10 16:10:25 - mmengine - INFO - per class results:
+2026/04/10 16:10:25 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 97.92 |
+|    cat     | 44.65 | 34.55 |
+|    dog     | 52.18 | 56.68 |
++------------+-------+-------+
+2026/04/10 16:10:25 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0400  mDice: 64.5100  mAcc: 63.0500  data_time: 0.0086  time: 0.0232
+2026/04/10 16:10:27 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:27 - mmengine - INFO - Iter(train) [  722/19000]  lr: 9.7107e-05  eta: 0:20:36  time: 0.0497  data_time: 0.0079  memory: 866  loss: 0.0415  decode.loss_focal: 0.0056  decode.loss_dice: 0.0359  decode.acc_seg: 97.1006
+2026/04/10 16:10:27 - mmengine - INFO - per class results:
+2026/04/10 16:10:27 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.65 | 97.89 |
+|    cat     | 45.92 | 36.17 |
+|    dog     | 50.95 | 53.93 |
++------------+-------+-------+
+2026/04/10 16:10:27 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0100  mDice: 64.5100  mAcc: 62.6600  data_time: 0.0091  time: 0.0236
+2026/04/10 16:10:30 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:30 - mmengine - INFO - Iter(train) [  760/19000]  lr: 9.6945e-05  eta: 0:20:33  time: 0.0628  data_time: 0.0075  memory: 866  loss: 0.0328  decode.loss_focal: 0.0044  decode.loss_dice: 0.0284  decode.acc_seg: 98.2034
+2026/04/10 16:10:30 - mmengine - INFO - per class results:
+2026/04/10 16:10:30 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 97.95 |
+|    cat     | 42.19 |  31.2 |
+|    dog     | 50.21 | 57.41 |
++------------+-------+-------+
+2026/04/10 16:10:30 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8800  mDice: 63.0500  mAcc: 62.1900  data_time: 0.0086  time: 0.0244
+2026/04/10 16:10:32 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:32 - mmengine - INFO - Iter(train) [  798/19000]  lr: 9.6784e-05  eta: 0:20:25  time: 0.0593  data_time: 0.0076  memory: 866  loss: 0.0410  decode.loss_focal: 0.0063  decode.loss_dice: 0.0346  decode.acc_seg: 96.2261
+2026/04/10 16:10:33 - mmengine - INFO - per class results:
+2026/04/10 16:10:33 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.8 |  98.0 |
+|    cat     | 41.85 | 32.11 |
+|    dog     | 49.45 | 54.38 |
++------------+-------+-------+
+2026/04/10 16:10:33 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8600  mDice: 62.7000  mAcc: 61.5000  data_time: 0.0250  time: 0.0422
+2026/04/10 16:10:36 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:36 - mmengine - INFO - Iter(train) [  836/19000]  lr: 9.6622e-05  eta: 0:20:19  time: 0.0668  data_time: 0.0092  memory: 866  loss: 0.0321  decode.loss_focal: 0.0040  decode.loss_dice: 0.0280  decode.acc_seg: 98.5716
+2026/04/10 16:10:36 - mmengine - INFO - per class results:
+2026/04/10 16:10:36 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 | 98.12 |
+|    cat     | 39.56 | 28.28 |
+|    dog     | 52.15 | 59.42 |
++------------+-------+-------+
+2026/04/10 16:10:36 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9200  mDice: 62.8100  mAcc: 61.9400  data_time: 0.0094  time: 0.0257
+2026/04/10 16:10:38 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:38 - mmengine - INFO - Iter(train) [  874/19000]  lr: 9.6461e-05  eta: 0:20:15  time: 0.0683  data_time: 0.0097  memory: 866  loss: 0.0373  decode.loss_focal: 0.0039  decode.loss_dice: 0.0334  decode.acc_seg: 98.0724
+2026/04/10 16:10:39 - mmengine - INFO - per class results:
+2026/04/10 16:10:39 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 98.13 |
+|    cat     | 40.47 | 29.45 |
+|    dog     | 52.15 | 57.81 |
++------------+-------+-------+
+2026/04/10 16:10:39 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9400  mDice: 63.1000  mAcc: 61.8000  data_time: 0.0106  time: 0.0272
+2026/04/10 16:10:41 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:41 - mmengine - INFO - Iter(train) [  912/19000]  lr: 9.6299e-05  eta: 0:20:05  time: 0.0615  data_time: 0.0088  memory: 866  loss: 0.0375  decode.loss_focal: 0.0066  decode.loss_dice: 0.0309  decode.acc_seg: 95.9938
+2026/04/10 16:10:41 - mmengine - INFO - per class results:
+2026/04/10 16:10:41 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.68 | 98.11 |
+|    cat     | 45.09 | 35.41 |
+|    dog     | 50.33 | 51.33 |
++------------+-------+-------+
+2026/04/10 16:10:41 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0400  mDice: 64.0300  mAcc: 61.6200  data_time: 0.0087  time: 0.0248
+2026/04/10 16:10:44 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:44 - mmengine - INFO - Iter(train) [  950/19000]  lr: 9.6137e-05  eta: 0:19:57  time: 0.0561  data_time: 0.0077  memory: 866  loss: 0.0355  decode.loss_focal: 0.0043  decode.loss_dice: 0.0311  decode.acc_seg: 98.2173
+2026/04/10 16:10:44 - mmengine - INFO - per class results:
+2026/04/10 16:10:44 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 98.34 |
+|    cat     | 45.76 | 36.08 |
+|    dog     |  51.2 | 49.55 |
++------------+-------+-------+
+2026/04/10 16:10:44 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.2200  mDice: 64.5500  mAcc: 61.3200  data_time: 0.0089  time: 0.0234
+2026/04/10 16:10:46 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:46 - mmengine - INFO - Iter(train) [  988/19000]  lr: 9.5976e-05  eta: 0:19:44  time: 0.0547  data_time: 0.0073  memory: 866  loss: 0.0333  decode.loss_focal: 0.0045  decode.loss_dice: 0.0289  decode.acc_seg: 98.8787
+2026/04/10 16:10:47 - mmengine - INFO - per class results:
+2026/04/10 16:10:47 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 98.01 |
+|    cat     | 46.17 | 36.61 |
+|    dog     | 52.54 | 54.63 |
++------------+-------+-------+
+2026/04/10 16:10:47 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1700  mDice: 65.1400  mAcc: 63.0800  data_time: 0.0242  time: 0.0398
+2026/04/10 16:10:47 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:49 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:49 - mmengine - INFO - Iter(train) [ 1026/19000]  lr: 9.5814e-05  eta: 0:19:36  time: 0.0635  data_time: 0.0086  memory: 866  loss: 0.0309  decode.loss_focal: 0.0036  decode.loss_dice: 0.0273  decode.acc_seg: 98.4269
+2026/04/10 16:10:49 - mmengine - INFO - per class results:
+2026/04/10 16:10:49 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 |  97.9 |
+|    cat     |  45.5 | 35.27 |
+|    dog     |  52.5 | 57.28 |
++------------+-------+-------+
+2026/04/10 16:10:49 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0900  mDice: 64.9100  mAcc: 63.4800  data_time: 0.0085  time: 0.0228
+2026/04/10 16:10:52 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:52 - mmengine - INFO - Iter(train) [ 1064/19000]  lr: 9.5652e-05  eta: 0:19:36  time: 0.0606  data_time: 0.0082  memory: 866  loss: 0.0304  decode.loss_focal: 0.0034  decode.loss_dice: 0.0270  decode.acc_seg: 98.4610
+2026/04/10 16:10:52 - mmengine - INFO - per class results:
+2026/04/10 16:10:52 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.67 | 98.06 |
+|    cat     | 38.19 | 27.65 |
+|    dog     | 50.91 | 57.27 |
++------------+-------+-------+
+2026/04/10 16:10:52 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7400  mDice: 61.9200  mAcc: 60.9900  data_time: 0.0082  time: 0.0225
+2026/04/10 16:10:55 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:55 - mmengine - INFO - Iter(train) [ 1102/19000]  lr: 9.5490e-05  eta: 0:19:33  time: 0.0609  data_time: 0.0081  memory: 866  loss: 0.0320  decode.loss_focal: 0.0043  decode.loss_dice: 0.0277  decode.acc_seg: 98.7026
+2026/04/10 16:10:55 - mmengine - INFO - per class results:
+2026/04/10 16:10:55 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 |  97.9 |
+|    cat     | 46.25 | 36.78 |
+|    dog     | 50.92 | 54.01 |
++------------+-------+-------+
+2026/04/10 16:10:55 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0600  mDice: 64.6300  mAcc: 62.9000  data_time: 0.0107  time: 0.0278
+2026/04/10 16:10:57 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:10:57 - mmengine - INFO - Iter(train) [ 1140/19000]  lr: 9.5328e-05  eta: 0:19:29  time: 0.0607  data_time: 0.0080  memory: 866  loss: 0.0289  decode.loss_focal: 0.0035  decode.loss_dice: 0.0255  decode.acc_seg: 98.7448
+2026/04/10 16:10:58 - mmengine - INFO - per class results:
+2026/04/10 16:10:58 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 98.03 |
+|    cat     | 40.64 | 30.11 |
+|    dog     | 52.86 | 59.08 |
++------------+-------+-------+
+2026/04/10 16:10:58 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9400  mDice: 63.4100  mAcc: 62.4100  data_time: 0.0089  time: 0.0243
+2026/04/10 16:11:00 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:00 - mmengine - INFO - Iter(train) [ 1178/19000]  lr: 9.5166e-05  eta: 0:19:27  time: 0.0644  data_time: 0.0089  memory: 866  loss: 0.0317  decode.loss_focal: 0.0037  decode.loss_dice: 0.0279  decode.acc_seg: 98.5845
+2026/04/10 16:11:01 - mmengine - INFO - per class results:
+2026/04/10 16:11:01 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 98.19 |
+|    cat     | 40.47 | 29.78 |
+|    dog     | 51.34 | 55.93 |
++------------+-------+-------+
+2026/04/10 16:11:01 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9400  mDice: 62.8400  mAcc: 61.3000  data_time: 0.0096  time: 0.0261
+2026/04/10 16:11:03 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:03 - mmengine - INFO - Iter(train) [ 1216/19000]  lr: 9.5003e-05  eta: 0:19:22  time: 0.0669  data_time: 0.0094  memory: 866  loss: 0.0332  decode.loss_focal: 0.0038  decode.loss_dice: 0.0293  decode.acc_seg: 98.2027
+2026/04/10 16:11:03 - mmengine - INFO - per class results:
+2026/04/10 16:11:03 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.76 | 98.24 |
+|    cat     | 43.94 | 33.26 |
+|    dog     | 51.87 | 54.68 |
++------------+-------+-------+
+2026/04/10 16:11:03 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1600  mDice: 64.1900  mAcc: 62.0600  data_time: 0.0101  time: 0.0261
+2026/04/10 16:11:06 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:06 - mmengine - INFO - Iter(train) [ 1254/19000]  lr: 9.4841e-05  eta: 0:19:17  time: 0.0698  data_time: 0.0089  memory: 866  loss: 0.0344  decode.loss_focal: 0.0042  decode.loss_dice: 0.0302  decode.acc_seg: 98.3456
+2026/04/10 16:11:06 - mmengine - INFO - per class results:
+2026/04/10 16:11:06 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 |  98.1 |
+|    cat     | 34.15 | 22.74 |
+|    dog     | 51.49 | 62.57 |
++------------+-------+-------+
+2026/04/10 16:11:06 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6700  mDice: 60.7800  mAcc: 61.1300  data_time: 0.0085  time: 0.0236
+2026/04/10 16:11:08 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:08 - mmengine - INFO - Iter(train) [ 1292/19000]  lr: 9.4679e-05  eta: 0:19:12  time: 0.0645  data_time: 0.0084  memory: 866  loss: 0.0366  decode.loss_focal: 0.0038  decode.loss_dice: 0.0329  decode.acc_seg: 98.3712
+2026/04/10 16:11:09 - mmengine - INFO - per class results:
+2026/04/10 16:11:09 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.56 | 98.13 |
+|    cat     | 42.27 | 31.91 |
+|    dog     | 51.04 | 52.97 |
++------------+-------+-------+
+2026/04/10 16:11:09 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9000  mDice: 63.2900  mAcc: 61.0000  data_time: 0.0237  time: 0.0405
+2026/04/10 16:11:12 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:12 - mmengine - INFO - Iter(train) [ 1330/19000]  lr: 9.4516e-05  eta: 0:19:12  time: 0.0646  data_time: 0.0089  memory: 866  loss: 0.0330  decode.loss_focal: 0.0041  decode.loss_dice: 0.0289  decode.acc_seg: 98.0071
+2026/04/10 16:11:12 - mmengine - INFO - per class results:
+2026/04/10 16:11:12 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 98.16 |
+|    cat     | 39.79 | 29.05 |
+|    dog     |  50.7 | 56.37 |
++------------+-------+-------+
+2026/04/10 16:11:12 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8800  mDice: 62.4200  mAcc: 61.1900  data_time: 0.0086  time: 0.0243
+2026/04/10 16:11:14 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:14 - mmengine - INFO - Iter(train) [ 1368/19000]  lr: 9.4354e-05  eta: 0:19:07  time: 0.0535  data_time: 0.0076  memory: 866  loss: 0.0389  decode.loss_focal: 0.0035  decode.loss_dice: 0.0354  decode.acc_seg: 98.1335
+2026/04/10 16:11:15 - mmengine - INFO - per class results:
+2026/04/10 16:11:15 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.76 | 98.01 |
+|    cat     |  41.4 | 30.43 |
+|    dog     | 50.07 | 57.07 |
++------------+-------+-------+
+2026/04/10 16:11:15 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8700  mDice: 62.7500  mAcc: 61.8400  data_time: 0.0084  time: 0.0224
+2026/04/10 16:11:17 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:17 - mmengine - INFO - Iter(train) [ 1406/19000]  lr: 9.4191e-05  eta: 0:19:01  time: 0.0604  data_time: 0.0081  memory: 866  loss: 0.0406  decode.loss_focal: 0.0044  decode.loss_dice: 0.0361  decode.acc_seg: 98.3573
+2026/04/10 16:11:17 - mmengine - INFO - per class results:
+2026/04/10 16:11:17 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 98.15 |
+|    cat     | 41.73 | 30.98 |
+|    dog     | 50.39 | 54.49 |
++------------+-------+-------+
+2026/04/10 16:11:17 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9200  mDice: 62.9400  mAcc: 61.2100  data_time: 0.0101  time: 0.0254
+2026/04/10 16:11:20 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:20 - mmengine - INFO - Iter(train) [ 1444/19000]  lr: 9.4029e-05  eta: 0:19:00  time: 0.0668  data_time: 0.0085  memory: 866  loss: 0.0342  decode.loss_focal: 0.0035  decode.loss_dice: 0.0308  decode.acc_seg: 98.3640
+2026/04/10 16:11:20 - mmengine - INFO - per class results:
+2026/04/10 16:11:20 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 | 98.29 |
+|    cat     | 46.22 | 36.35 |
+|    dog     | 51.27 |  50.4 |
++------------+-------+-------+
+2026/04/10 16:11:20 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.2300  mDice: 64.7300  mAcc: 61.6800  data_time: 0.0093  time: 0.0258
+2026/04/10 16:11:23 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:23 - mmengine - INFO - Iter(train) [ 1482/19000]  lr: 9.3866e-05  eta: 0:18:56  time: 0.0532  data_time: 0.0066  memory: 866  loss: 0.0428  decode.loss_focal: 0.0057  decode.loss_dice: 0.0371  decode.acc_seg: 98.1770
+2026/04/10 16:11:23 - mmengine - INFO - per class results:
+2026/04/10 16:11:23 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 98.06 |
+|    cat     | 40.76 | 30.23 |
+|    dog     | 49.73 | 55.13 |
++------------+-------+-------+
+2026/04/10 16:11:23 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8200  mDice: 62.4000  mAcc: 61.1400  data_time: 0.0094  time: 0.0258
+2026/04/10 16:11:25 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:25 - mmengine - INFO - Iter(train) [ 1520/19000]  lr: 9.3703e-05  eta: 0:18:48  time: 0.0582  data_time: 0.0084  memory: 866  loss: 0.0324  decode.loss_focal: 0.0041  decode.loss_dice: 0.0283  decode.acc_seg: 98.5495
+2026/04/10 16:11:25 - mmengine - INFO - per class results:
+2026/04/10 16:11:25 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 97.94 |
+|    cat     | 47.46 | 38.04 |
+|    dog     | 48.56 | 50.25 |
++------------+-------+-------+
+2026/04/10 16:11:25 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0200  mDice: 64.2400  mAcc: 62.0800  data_time: 0.0102  time: 0.0272
+2026/04/10 16:11:28 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:28 - mmengine - INFO - Iter(train) [ 1558/19000]  lr: 9.3541e-05  eta: 0:18:44  time: 0.0598  data_time: 0.0080  memory: 866  loss: 0.0325  decode.loss_focal: 0.0029  decode.loss_dice: 0.0296  decode.acc_seg: 98.8538
+2026/04/10 16:11:28 - mmengine - INFO - per class results:
+2026/04/10 16:11:28 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.78 | 97.91 |
+|    cat     | 45.67 | 36.52 |
+|    dog     | 48.97 | 52.13 |
++------------+-------+-------+
+2026/04/10 16:11:28 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9700  mDice: 63.8000  mAcc: 62.1900  data_time: 0.0101  time: 0.0254
+2026/04/10 16:11:30 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:30 - mmengine - INFO - Iter(train) [ 1596/19000]  lr: 9.3378e-05  eta: 0:18:40  time: 0.0620  data_time: 0.0077  memory: 866  loss: 0.0331  decode.loss_focal: 0.0032  decode.loss_dice: 0.0300  decode.acc_seg: 98.0569
+2026/04/10 16:11:31 - mmengine - INFO - per class results:
+2026/04/10 16:11:31 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.76 | 98.25 |
+|    cat     | 41.47 | 30.12 |
+|    dog     | 51.34 | 56.38 |
++------------+-------+-------+
+2026/04/10 16:11:31 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0400  mDice: 63.1900  mAcc: 61.5900  data_time: 0.0233  time: 0.0384
+2026/04/10 16:11:33 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:33 - mmengine - INFO - Iter(train) [ 1634/19000]  lr: 9.3215e-05  eta: 0:18:36  time: 0.0559  data_time: 0.0075  memory: 866  loss: 0.0305  decode.loss_focal: 0.0042  decode.loss_dice: 0.0263  decode.acc_seg: 98.1077
+2026/04/10 16:11:34 - mmengine - INFO - per class results:
+2026/04/10 16:11:34 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 | 98.28 |
+|    cat     | 44.55 | 33.97 |
+|    dog     | 52.23 |  53.7 |
++------------+-------+-------+
+2026/04/10 16:11:34 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.2000  mDice: 64.5000  mAcc: 61.9900  data_time: 0.0107  time: 0.0272
+2026/04/10 16:11:36 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:36 - mmengine - INFO - Iter(train) [ 1672/19000]  lr: 9.3052e-05  eta: 0:18:29  time: 0.0486  data_time: 0.0074  memory: 866  loss: 0.0292  decode.loss_focal: 0.0033  decode.loss_dice: 0.0259  decode.acc_seg: 97.7045
+2026/04/10 16:11:36 - mmengine - INFO - per class results:
+2026/04/10 16:11:36 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.77 | 98.18 |
+|    cat     | 41.74 | 30.54 |
+|    dog     | 52.05 | 57.73 |
++------------+-------+-------+
+2026/04/10 16:11:36 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0600  mDice: 63.5200  mAcc: 62.1500  data_time: 0.0097  time: 0.0251
+2026/04/10 16:11:38 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:38 - mmengine - INFO - Iter(train) [ 1710/19000]  lr: 9.2889e-05  eta: 0:18:26  time: 0.0610  data_time: 0.0086  memory: 866  loss: 0.0275  decode.loss_focal: 0.0034  decode.loss_dice: 0.0241  decode.acc_seg: 98.8426
+2026/04/10 16:11:39 - mmengine - INFO - per class results:
+2026/04/10 16:11:39 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 98.31 |
+|    cat     | 45.13 | 35.14 |
+|    dog     | 51.25 | 51.06 |
++------------+-------+-------+
+2026/04/10 16:11:39 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1900  mDice: 64.3700  mAcc: 61.5000  data_time: 0.0114  time: 0.0286
+2026/04/10 16:11:41 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:41 - mmengine - INFO - Iter(train) [ 1748/19000]  lr: 9.2725e-05  eta: 0:18:20  time: 0.0558  data_time: 0.0063  memory: 866  loss: 0.0260  decode.loss_focal: 0.0035  decode.loss_dice: 0.0225  decode.acc_seg: 98.7429
+2026/04/10 16:11:41 - mmengine - INFO - per class results:
+2026/04/10 16:11:41 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.79 | 98.13 |
+|    cat     | 43.97 | 33.22 |
+|    dog     | 52.38 | 56.98 |
++------------+-------+-------+
+2026/04/10 16:11:41 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1500  mDice: 64.3800  mAcc: 62.7800  data_time: 0.0099  time: 0.0257
+2026/04/10 16:11:44 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:44 - mmengine - INFO - Iter(train) [ 1786/19000]  lr: 9.2562e-05  eta: 0:18:16  time: 0.0685  data_time: 0.0102  memory: 866  loss: 0.0298  decode.loss_focal: 0.0031  decode.loss_dice: 0.0267  decode.acc_seg: 98.2401
+2026/04/10 16:11:44 - mmengine - INFO - per class results:
+2026/04/10 16:11:44 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 | 98.34 |
+|    cat     | 42.07 | 31.23 |
+|    dog     | 51.96 | 54.51 |
++------------+-------+-------+
+2026/04/10 16:11:44 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1000  mDice: 63.5900  mAcc: 61.3600  data_time: 0.0088  time: 0.0227
+2026/04/10 16:11:46 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:46 - mmengine - INFO - Iter(train) [ 1824/19000]  lr: 9.2399e-05  eta: 0:18:11  time: 0.0504  data_time: 0.0066  memory: 866  loss: 0.0343  decode.loss_focal: 0.0040  decode.loss_dice: 0.0303  decode.acc_seg: 98.7444
+2026/04/10 16:11:47 - mmengine - INFO - per class results:
+2026/04/10 16:11:47 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.79 | 98.14 |
+|    cat     | 39.21 | 27.55 |
+|    dog     | 53.06 | 62.05 |
++------------+-------+-------+
+2026/04/10 16:11:47 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0000  mDice: 63.0200  mAcc: 62.5800  data_time: 0.0098  time: 0.0252
+2026/04/10 16:11:49 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:49 - mmengine - INFO - Iter(train) [ 1862/19000]  lr: 9.2235e-05  eta: 0:18:04  time: 0.0477  data_time: 0.0067  memory: 866  loss: 0.0276  decode.loss_focal: 0.0031  decode.loss_dice: 0.0245  decode.acc_seg: 98.6803
+2026/04/10 16:11:49 - mmengine - INFO - per class results:
+2026/04/10 16:11:49 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.77 |  98.1 |
+|    cat     | 42.38 | 31.28 |
+|    dog     | 53.67 |  59.9 |
++------------+-------+-------+
+2026/04/10 16:11:49 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1200  mDice: 64.2700  mAcc: 63.0900  data_time: 0.0093  time: 0.0237
+2026/04/10 16:11:51 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:51 - mmengine - INFO - Iter(train) [ 1900/19000]  lr: 9.2072e-05  eta: 0:17:57  time: 0.0407  data_time: 0.0060  memory: 866  loss: 0.0306  decode.loss_focal: 0.0033  decode.loss_dice: 0.0273  decode.acc_seg: 98.7418
+2026/04/10 16:11:51 - mmengine - INFO - Saving checkpoint at 50 epochs
+2026/04/10 16:11:52 - mmengine - INFO - per class results:
+2026/04/10 16:11:52 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 98.29 |
+|    cat     | 40.45 | 29.01 |
+|    dog     | 51.99 | 57.36 |
++------------+-------+-------+
+2026/04/10 16:11:52 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0300  mDice: 63.0600  mAcc: 61.5500  data_time: 0.0221  time: 0.0363
+2026/04/10 16:11:54 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:54 - mmengine - INFO - Iter(train) [ 1938/19000]  lr: 9.1908e-05  eta: 0:17:52  time: 0.0587  data_time: 0.0073  memory: 866  loss: 0.0285  decode.loss_focal: 0.0030  decode.loss_dice: 0.0255  decode.acc_seg: 98.4228
+2026/04/10 16:11:54 - mmengine - INFO - per class results:
+2026/04/10 16:11:54 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 | 98.38 |
+|    cat     | 38.26 | 26.64 |
+|    dog     | 51.44 | 56.86 |
++------------+-------+-------+
+2026/04/10 16:11:54 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9400  mDice: 62.1300  mAcc: 60.6300  data_time: 0.0086  time: 0.0230
+2026/04/10 16:11:56 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:11:57 - mmengine - INFO - Iter(train) [ 1976/19000]  lr: 9.1745e-05  eta: 0:17:49  time: 0.0644  data_time: 0.0067  memory: 866  loss: 0.0307  decode.loss_focal: 0.0038  decode.loss_dice: 0.0269  decode.acc_seg: 98.7543
+2026/04/10 16:11:57 - mmengine - INFO - per class results:
+2026/04/10 16:11:57 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 98.31 |
+|    cat     | 42.03 | 30.69 |
+|    dog     | 51.69 | 55.77 |
++------------+-------+-------+
+2026/04/10 16:11:57 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1000  mDice: 63.4900  mAcc: 61.5900  data_time: 0.0092  time: 0.0234
+2026/04/10 16:11:59 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:00 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:00 - mmengine - INFO - Iter(train) [ 2014/19000]  lr: 9.1581e-05  eta: 0:17:49  time: 0.0704  data_time: 0.0092  memory: 866  loss: 0.0274  decode.loss_focal: 0.0033  decode.loss_dice: 0.0241  decode.acc_seg: 98.9044
+2026/04/10 16:12:00 - mmengine - INFO - per class results:
+2026/04/10 16:12:00 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 98.29 |
+|    cat     | 40.69 | 29.56 |
+|    dog     | 52.18 | 56.84 |
++------------+-------+-------+
+2026/04/10 16:12:00 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0500  mDice: 63.2100  mAcc: 61.5600  data_time: 0.0106  time: 0.0270
+2026/04/10 16:12:03 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:03 - mmengine - INFO - Iter(train) [ 2052/19000]  lr: 9.1417e-05  eta: 0:17:50  time: 0.0735  data_time: 0.0093  memory: 866  loss: 0.0322  decode.loss_focal: 0.0034  decode.loss_dice: 0.0287  decode.acc_seg: 98.4067
+2026/04/10 16:12:03 - mmengine - INFO - per class results:
+2026/04/10 16:12:03 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 | 98.24 |
+|    cat     | 43.73 | 33.07 |
+|    dog     | 51.01 | 53.51 |
++------------+-------+-------+
+2026/04/10 16:12:03 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0900  mDice: 63.8200  mAcc: 61.6100  data_time: 0.0091  time: 0.0240
+2026/04/10 16:12:06 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:06 - mmengine - INFO - Iter(train) [ 2090/19000]  lr: 9.1253e-05  eta: 0:17:51  time: 0.0711  data_time: 0.0094  memory: 866  loss: 0.0352  decode.loss_focal: 0.0033  decode.loss_dice: 0.0319  decode.acc_seg: 98.3579
+2026/04/10 16:12:06 - mmengine - INFO - per class results:
+2026/04/10 16:12:06 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 | 98.08 |
+|    cat     |  44.4 | 34.06 |
+|    dog     | 48.44 |  51.3 |
++------------+-------+-------+
+2026/04/10 16:12:06 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9300  mDice: 63.1800  mAcc: 61.1500  data_time: 0.0145  time: 0.0292
+2026/04/10 16:12:09 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:09 - mmengine - INFO - Iter(train) [ 2128/19000]  lr: 9.1090e-05  eta: 0:17:52  time: 0.0715  data_time: 0.0097  memory: 866  loss: 0.0321  decode.loss_focal: 0.0041  decode.loss_dice: 0.0280  decode.acc_seg: 98.5142
+2026/04/10 16:12:10 - mmengine - INFO - per class results:
+2026/04/10 16:12:10 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 98.01 |
+|    cat     | 41.79 | 31.33 |
+|    dog     | 51.81 | 57.28 |
++------------+-------+-------+
+2026/04/10 16:12:10 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9300  mDice: 63.4400  mAcc: 62.2100  data_time: 0.0098  time: 0.0243
+2026/04/10 16:12:12 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:12 - mmengine - INFO - Iter(train) [ 2166/19000]  lr: 9.0926e-05  eta: 0:17:53  time: 0.0744  data_time: 0.0099  memory: 866  loss: 0.0327  decode.loss_focal: 0.0044  decode.loss_dice: 0.0283  decode.acc_seg: 97.5078
+2026/04/10 16:12:13 - mmengine - INFO - per class results:
+2026/04/10 16:12:13 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.55 | 98.24 |
+|    cat     | 41.44 | 30.85 |
+|    dog     | 50.12 | 51.53 |
++------------+-------+-------+
+2026/04/10 16:12:13 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8600  mDice: 62.7000  mAcc: 60.2100  data_time: 0.0102  time: 0.0257
+2026/04/10 16:12:15 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:15 - mmengine - INFO - Iter(train) [ 2204/19000]  lr: 9.0761e-05  eta: 0:17:51  time: 0.0695  data_time: 0.0091  memory: 866  loss: 0.0355  decode.loss_focal: 0.0034  decode.loss_dice: 0.0321  decode.acc_seg: 98.5950
+2026/04/10 16:12:16 - mmengine - INFO - per class results:
+2026/04/10 16:12:16 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 98.09 |
+|    cat     | 41.61 | 30.24 |
+|    dog     | 53.44 | 59.97 |
++------------+-------+-------+
+2026/04/10 16:12:16 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0500  mDice: 63.9200  mAcc: 62.7700  data_time: 0.0096  time: 0.0237
+2026/04/10 16:12:18 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:18 - mmengine - INFO - Iter(train) [ 2242/19000]  lr: 9.0597e-05  eta: 0:17:46  time: 0.0402  data_time: 0.0065  memory: 866  loss: 0.0326  decode.loss_focal: 0.0052  decode.loss_dice: 0.0275  decode.acc_seg: 97.3242
+2026/04/10 16:12:18 - mmengine - INFO - per class results:
+2026/04/10 16:12:18 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.68 | 98.22 |
+|    cat     | 42.33 | 31.31 |
+|    dog     | 50.46 | 53.98 |
++------------+-------+-------+
+2026/04/10 16:12:18 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9800  mDice: 63.1600  mAcc: 61.1700  data_time: 0.0116  time: 0.0285
+2026/04/10 16:12:21 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:21 - mmengine - INFO - Iter(train) [ 2280/19000]  lr: 9.0433e-05  eta: 0:17:46  time: 0.0722  data_time: 0.0101  memory: 866  loss: 0.0352  decode.loss_focal: 0.0039  decode.loss_dice: 0.0313  decode.acc_seg: 98.0097
+2026/04/10 16:12:21 - mmengine - INFO - per class results:
+2026/04/10 16:12:21 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.62 | 98.03 |
+|    cat     | 40.15 | 29.62 |
+|    dog     | 49.61 | 54.51 |
++------------+-------+-------+
+2026/04/10 16:12:21 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7200  mDice: 62.1300  mAcc: 60.7200  data_time: 0.0105  time: 0.0252
+2026/04/10 16:12:24 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:24 - mmengine - INFO - Iter(train) [ 2318/19000]  lr: 9.0269e-05  eta: 0:17:46  time: 0.0713  data_time: 0.0097  memory: 866  loss: 0.0288  decode.loss_focal: 0.0039  decode.loss_dice: 0.0249  decode.acc_seg: 98.5032
+2026/04/10 16:12:25 - mmengine - INFO - per class results:
+2026/04/10 16:12:25 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.64 | 98.14 |
+|    cat     | 45.55 | 36.58 |
+|    dog     | 47.97 | 46.93 |
++------------+-------+-------+
+2026/04/10 16:12:25 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9600  mDice: 63.3900  mAcc: 60.5500  data_time: 0.0097  time: 0.0249
+2026/04/10 16:12:27 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:27 - mmengine - INFO - Iter(train) [ 2356/19000]  lr: 9.0105e-05  eta: 0:17:46  time: 0.0747  data_time: 0.0109  memory: 866  loss: 0.0313  decode.loss_focal: 0.0036  decode.loss_dice: 0.0277  decode.acc_seg: 98.6722
+2026/04/10 16:12:28 - mmengine - INFO - per class results:
+2026/04/10 16:12:28 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.6 | 97.74 |
+|    cat     | 43.14 | 34.14 |
+|    dog     | 49.66 | 53.35 |
++------------+-------+-------+
+2026/04/10 16:12:28 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7100  mDice: 63.1300  mAcc: 61.7400  data_time: 0.0102  time: 0.0249
+2026/04/10 16:12:30 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:30 - mmengine - INFO - Iter(train) [ 2394/19000]  lr: 8.9940e-05  eta: 0:17:46  time: 0.0751  data_time: 0.0106  memory: 866  loss: 0.0354  decode.loss_focal: 0.0033  decode.loss_dice: 0.0321  decode.acc_seg: 98.6849
+2026/04/10 16:12:31 - mmengine - INFO - per class results:
+2026/04/10 16:12:31 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.61 | 98.18 |
+|    cat     | 37.16 | 26.32 |
+|    dog     | 49.68 | 55.15 |
++------------+-------+-------+
+2026/04/10 16:12:31 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6700  mDice: 61.1500  mAcc: 59.8800  data_time: 0.0237  time: 0.0390
+2026/04/10 16:12:34 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:34 - mmengine - INFO - Iter(train) [ 2432/19000]  lr: 8.9776e-05  eta: 0:17:46  time: 0.0762  data_time: 0.0105  memory: 866  loss: 0.0276  decode.loss_focal: 0.0030  decode.loss_dice: 0.0245  decode.acc_seg: 98.7057
+2026/04/10 16:12:34 - mmengine - INFO - per class results:
+2026/04/10 16:12:34 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.74 | 98.14 |
+|    cat     | 45.09 | 35.09 |
+|    dog     | 50.66 | 52.68 |
++------------+-------+-------+
+2026/04/10 16:12:34 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.1000  mDice: 64.1700  mAcc: 61.9700  data_time: 0.0104  time: 0.0271
+2026/04/10 16:12:37 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:37 - mmengine - INFO - Iter(train) [ 2470/19000]  lr: 8.9611e-05  eta: 0:17:46  time: 0.0642  data_time: 0.0093  memory: 866  loss: 0.0336  decode.loss_focal: 0.0030  decode.loss_dice: 0.0306  decode.acc_seg: 98.5807
+2026/04/10 16:12:37 - mmengine - INFO - per class results:
+2026/04/10 16:12:37 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 |  98.3 |
+|    cat     | 43.74 | 33.16 |
+|    dog     | 50.04 | 51.43 |
++------------+-------+-------+
+2026/04/10 16:12:37 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0700  mDice: 63.5000  mAcc: 60.9600  data_time: 0.0086  time: 0.0230
+2026/04/10 16:12:40 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:40 - mmengine - INFO - Iter(train) [ 2508/19000]  lr: 8.9446e-05  eta: 0:17:45  time: 0.0731  data_time: 0.0101  memory: 866  loss: 0.0272  decode.loss_focal: 0.0029  decode.loss_dice: 0.0242  decode.acc_seg: 99.0699
+2026/04/10 16:12:41 - mmengine - INFO - per class results:
+2026/04/10 16:12:41 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 | 98.31 |
+|    cat     | 44.81 | 34.51 |
+|    dog     | 49.19 | 49.41 |
++------------+-------+-------+
+2026/04/10 16:12:41 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0800  mDice: 63.5700  mAcc: 60.7400  data_time: 0.0094  time: 0.0232
+2026/04/10 16:12:43 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:43 - mmengine - INFO - Iter(train) [ 2546/19000]  lr: 8.9282e-05  eta: 0:17:45  time: 0.0718  data_time: 0.0100  memory: 866  loss: 0.0321  decode.loss_focal: 0.0033  decode.loss_dice: 0.0288  decode.acc_seg: 98.4474
+2026/04/10 16:12:44 - mmengine - INFO - per class results:
+2026/04/10 16:12:44 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 98.39 |
+|    cat     | 40.29 | 29.09 |
+|    dog     | 49.12 | 52.73 |
++------------+-------+-------+
+2026/04/10 16:12:44 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9400  mDice: 62.0500  mAcc: 60.0700  data_time: 0.0097  time: 0.0241
+2026/04/10 16:12:47 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:47 - mmengine - INFO - Iter(train) [ 2584/19000]  lr: 8.9117e-05  eta: 0:17:45  time: 0.0733  data_time: 0.0098  memory: 866  loss: 0.0291  decode.loss_focal: 0.0033  decode.loss_dice: 0.0259  decode.acc_seg: 97.8588
+2026/04/10 16:12:47 - mmengine - INFO - per class results:
+2026/04/10 16:12:47 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 98.22 |
+|    cat     |  42.8 | 32.18 |
+|    dog     | 49.48 | 52.71 |
++------------+-------+-------+
+2026/04/10 16:12:47 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9800  mDice: 63.0100  mAcc: 61.0300  data_time: 0.0091  time: 0.0228
+2026/04/10 16:12:50 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:50 - mmengine - INFO - Iter(train) [ 2622/19000]  lr: 8.8952e-05  eta: 0:17:45  time: 0.0746  data_time: 0.0099  memory: 866  loss: 0.0289  decode.loss_focal: 0.0030  decode.loss_dice: 0.0258  decode.acc_seg: 97.6549
+2026/04/10 16:12:50 - mmengine - INFO - per class results:
+2026/04/10 16:12:50 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 98.21 |
+|    cat     | 33.88 | 23.17 |
+|    dog     |  49.9 | 58.07 |
++------------+-------+-------+
+2026/04/10 16:12:50 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6100  mDice: 60.1600  mAcc: 59.8200  data_time: 0.0102  time: 0.0259
+2026/04/10 16:12:53 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:53 - mmengine - INFO - Iter(train) [ 2660/19000]  lr: 8.8787e-05  eta: 0:17:43  time: 0.0648  data_time: 0.0083  memory: 866  loss: 0.0354  decode.loss_focal: 0.0036  decode.loss_dice: 0.0318  decode.acc_seg: 98.0114
+2026/04/10 16:12:53 - mmengine - INFO - per class results:
+2026/04/10 16:12:53 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.61 | 97.98 |
+|    cat     | 40.36 | 30.29 |
+|    dog     | 48.02 | 52.25 |
++------------+-------+-------+
+2026/04/10 16:12:53 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6200  mDice: 61.6600  mAcc: 60.1700  data_time: 0.0096  time: 0.0245
+2026/04/10 16:12:56 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:56 - mmengine - INFO - Iter(train) [ 2698/19000]  lr: 8.8622e-05  eta: 0:17:42  time: 0.0713  data_time: 0.0097  memory: 866  loss: 0.0253  decode.loss_focal: 0.0029  decode.loss_dice: 0.0224  decode.acc_seg: 98.7130
+2026/04/10 16:12:56 - mmengine - INFO - per class results:
+2026/04/10 16:12:56 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 98.28 |
+|    cat     | 41.75 | 31.08 |
+|    dog     |  50.2 | 52.71 |
++------------+-------+-------+
+2026/04/10 16:12:56 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9700  mDice: 62.8800  mAcc: 60.6900  data_time: 0.0239  time: 0.0385
+2026/04/10 16:12:59 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:12:59 - mmengine - INFO - Iter(train) [ 2736/19000]  lr: 8.8457e-05  eta: 0:17:37  time: 0.0506  data_time: 0.0075  memory: 866  loss: 0.0261  decode.loss_focal: 0.0032  decode.loss_dice: 0.0229  decode.acc_seg: 98.5103
+2026/04/10 16:12:59 - mmengine - INFO - per class results:
+2026/04/10 16:12:59 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.58 | 98.17 |
+|    cat     | 36.88 | 26.46 |
+|    dog     | 48.72 | 53.17 |
++------------+-------+-------+
+2026/04/10 16:12:59 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5800  mDice: 60.7300  mAcc: 59.2600  data_time: 0.0097  time: 0.0257
+2026/04/10 16:13:02 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:02 - mmengine - INFO - Iter(train) [ 2774/19000]  lr: 8.8292e-05  eta: 0:17:37  time: 0.0734  data_time: 0.0104  memory: 866  loss: 0.0272  decode.loss_focal: 0.0037  decode.loss_dice: 0.0235  decode.acc_seg: 98.3171
+2026/04/10 16:13:02 - mmengine - INFO - per class results:
+2026/04/10 16:13:02 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.58 | 98.35 |
+|    cat     | 35.51 | 24.53 |
+|    dog     |  47.3 | 51.66 |
++------------+-------+-------+
+2026/04/10 16:13:02 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5600  mDice: 59.7900  mAcc: 58.1800  data_time: 0.0105  time: 0.0264
+2026/04/10 16:13:05 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:05 - mmengine - INFO - Iter(train) [ 2812/19000]  lr: 8.8126e-05  eta: 0:17:36  time: 0.0716  data_time: 0.0098  memory: 866  loss: 0.0263  decode.loss_focal: 0.0045  decode.loss_dice: 0.0218  decode.acc_seg: 98.1965
+2026/04/10 16:13:05 - mmengine - INFO - per class results:
+2026/04/10 16:13:05 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.59 | 98.02 |
+|    cat     |  41.2 | 30.39 |
+|    dog     | 46.55 | 51.04 |
++------------+-------+-------+
+2026/04/10 16:13:05 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6200  mDice: 61.4500  mAcc: 59.8200  data_time: 0.0108  time: 0.0277
+2026/04/10 16:13:08 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:08 - mmengine - INFO - Iter(train) [ 2850/19000]  lr: 8.7961e-05  eta: 0:17:34  time: 0.0501  data_time: 0.0078  memory: 866  loss: 0.0229  decode.loss_focal: 0.0032  decode.loss_dice: 0.0197  decode.acc_seg: 98.4595
+2026/04/10 16:13:08 - mmengine - INFO - per class results:
+2026/04/10 16:13:08 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.62 | 98.13 |
+|    cat     |  43.4 | 33.68 |
+|    dog     | 47.16 | 47.97 |
++------------+-------+-------+
+2026/04/10 16:13:08 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8100  mDice: 62.3900  mAcc: 59.9300  data_time: 0.0097  time: 0.0242
+2026/04/10 16:13:11 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:11 - mmengine - INFO - Iter(train) [ 2888/19000]  lr: 8.7796e-05  eta: 0:17:34  time: 0.0729  data_time: 0.0103  memory: 866  loss: 0.0259  decode.loss_focal: 0.0036  decode.loss_dice: 0.0223  decode.acc_seg: 98.9278
+2026/04/10 16:13:12 - mmengine - INFO - per class results:
+2026/04/10 16:13:12 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.67 |  98.2 |
+|    cat     | 37.96 | 27.13 |
+|    dog     | 47.34 | 52.52 |
++------------+-------+-------+
+2026/04/10 16:13:12 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6300  mDice: 60.6600  mAcc: 59.2800  data_time: 0.0234  time: 0.0383
+2026/04/10 16:13:15 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:15 - mmengine - INFO - Iter(train) [ 2926/19000]  lr: 8.7630e-05  eta: 0:17:33  time: 0.0737  data_time: 0.0104  memory: 866  loss: 0.0210  decode.loss_focal: 0.0030  decode.loss_dice: 0.0180  decode.acc_seg: 98.7340
+2026/04/10 16:13:15 - mmengine - INFO - per class results:
+2026/04/10 16:13:15 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.55 | 97.94 |
+|    cat     | 45.23 | 37.48 |
+|    dog     | 42.53 | 40.87 |
++------------+-------+-------+
+2026/04/10 16:13:15 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5800  mDice: 61.4300  mAcc: 58.7600  data_time: 0.0096  time: 0.0234
+2026/04/10 16:13:18 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:18 - mmengine - INFO - Iter(train) [ 2964/19000]  lr: 8.7465e-05  eta: 0:17:32  time: 0.0719  data_time: 0.0098  memory: 866  loss: 0.0259  decode.loss_focal: 0.0036  decode.loss_dice: 0.0222  decode.acc_seg: 98.6005
+2026/04/10 16:13:18 - mmengine - INFO - per class results:
+2026/04/10 16:13:18 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.62 | 97.89 |
+|    cat     |  43.7 | 34.84 |
+|    dog     | 47.74 | 49.52 |
++------------+-------+-------+
+2026/04/10 16:13:18 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7300  mDice: 62.6900  mAcc: 60.7500  data_time: 0.0084  time: 0.0222
+2026/04/10 16:13:21 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:21 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:21 - mmengine - INFO - Iter(train) [ 3002/19000]  lr: 8.7299e-05  eta: 0:17:31  time: 0.0712  data_time: 0.0093  memory: 866  loss: 0.0223  decode.loss_focal: 0.0034  decode.loss_dice: 0.0189  decode.acc_seg: 96.7381
+2026/04/10 16:13:21 - mmengine - INFO - per class results:
+2026/04/10 16:13:21 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.58 |  98.2 |
+|    cat     | 42.93 | 33.14 |
+|    dog     | 48.82 | 48.77 |
++------------+-------+-------+
+2026/04/10 16:13:21 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8700  mDice: 62.7800  mAcc: 60.0300  data_time: 0.0089  time: 0.0229
+2026/04/10 16:13:24 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:24 - mmengine - INFO - Iter(train) [ 3040/19000]  lr: 8.7133e-05  eta: 0:17:28  time: 0.0722  data_time: 0.0103  memory: 866  loss: 0.0188  decode.loss_focal: 0.0026  decode.loss_dice: 0.0162  decode.acc_seg: 98.7232
+2026/04/10 16:13:24 - mmengine - INFO - per class results:
+2026/04/10 16:13:24 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.49 | 98.01 |
+|    cat     | 41.63 | 31.01 |
+|    dog     | 46.96 |  49.9 |
++------------+-------+-------+
+2026/04/10 16:13:24 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.6100  mDice: 61.6900  mAcc: 59.6400  data_time: 0.0102  time: 0.0250
+2026/04/10 16:13:27 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:27 - mmengine - INFO - Iter(train) [ 3078/19000]  lr: 8.6967e-05  eta: 0:17:26  time: 0.0710  data_time: 0.0095  memory: 866  loss: 0.0229  decode.loss_focal: 0.0034  decode.loss_dice: 0.0195  decode.acc_seg: 98.4304
+2026/04/10 16:13:27 - mmengine - INFO - per class results:
+2026/04/10 16:13:27 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.62 | 98.09 |
+|    cat     | 42.81 | 32.31 |
+|    dog     | 50.27 | 53.25 |
++------------+-------+-------+
+2026/04/10 16:13:27 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9000  mDice: 63.2300  mAcc: 61.2200  data_time: 0.0091  time: 0.0233
+2026/04/10 16:13:29 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:29 - mmengine - INFO - Iter(train) [ 3116/19000]  lr: 8.6801e-05  eta: 0:17:22  time: 0.0478  data_time: 0.0071  memory: 866  loss: 0.0188  decode.loss_focal: 0.0032  decode.loss_dice: 0.0157  decode.acc_seg: 97.6916
+2026/04/10 16:13:30 - mmengine - INFO - per class results:
+2026/04/10 16:13:30 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.64 | 98.13 |
+|    cat     |  43.3 |  32.7 |
+|    dog     | 47.43 | 49.96 |
++------------+-------+-------+
+2026/04/10 16:13:30 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8300  mDice: 62.4600  mAcc: 60.2600  data_time: 0.0085  time: 0.0238
+2026/04/10 16:13:32 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:32 - mmengine - INFO - Iter(train) [ 3154/19000]  lr: 8.6635e-05  eta: 0:17:18  time: 0.0451  data_time: 0.0071  memory: 866  loss: 0.0227  decode.loss_focal: 0.0041  decode.loss_dice: 0.0186  decode.acc_seg: 98.3381
+2026/04/10 16:13:32 - mmengine - INFO - per class results:
+2026/04/10 16:13:32 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 98.29 |
+|    cat     | 41.12 |  30.2 |
+|    dog     | 48.32 | 51.41 |
++------------+-------+-------+
+2026/04/10 16:13:32 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8600  mDice: 62.0400  mAcc: 59.9700  data_time: 0.0086  time: 0.0249
+2026/04/10 16:13:34 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:34 - mmengine - INFO - Iter(train) [ 3192/19000]  lr: 8.6469e-05  eta: 0:17:14  time: 0.0493  data_time: 0.0072  memory: 866  loss: 0.0202  decode.loss_focal: 0.0037  decode.loss_dice: 0.0164  decode.acc_seg: 98.8070
+2026/04/10 16:13:35 - mmengine - INFO - per class results:
+2026/04/10 16:13:35 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 97.89 |
+|    cat     | 35.88 | 24.17 |
+|    dog     | 49.93 | 62.15 |
++------------+-------+-------+
+2026/04/10 16:13:35 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5600  mDice: 60.8300  mAcc: 61.4000  data_time: 0.0221  time: 0.0383
+2026/04/10 16:13:37 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:37 - mmengine - INFO - Iter(train) [ 3230/19000]  lr: 8.6303e-05  eta: 0:17:09  time: 0.0510  data_time: 0.0067  memory: 866  loss: 0.0193  decode.loss_focal: 0.0033  decode.loss_dice: 0.0159  decode.acc_seg: 98.5899
+2026/04/10 16:13:37 - mmengine - INFO - per class results:
+2026/04/10 16:13:37 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.64 | 98.32 |
+|    cat     | 43.49 | 32.86 |
+|    dog     | 48.26 | 48.85 |
++------------+-------+-------+
+2026/04/10 16:13:37 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9500  mDice: 62.8000  mAcc: 60.0100  data_time: 0.0088  time: 0.0233
+2026/04/10 16:13:40 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:40 - mmengine - INFO - Iter(train) [ 3268/19000]  lr: 8.6137e-05  eta: 0:17:06  time: 0.0596  data_time: 0.0082  memory: 866  loss: 0.0209  decode.loss_focal: 0.0038  decode.loss_dice: 0.0171  decode.acc_seg: 98.6844
+2026/04/10 16:13:40 - mmengine - INFO - per class results:
+2026/04/10 16:13:40 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.65 | 97.86 |
+|    cat     | 43.22 |  33.2 |
+|    dog     | 49.06 | 53.74 |
++------------+-------+-------+
+2026/04/10 16:13:40 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7800  mDice: 62.9800  mAcc: 61.6000  data_time: 0.0091  time: 0.0267
+2026/04/10 16:13:43 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:43 - mmengine - INFO - Iter(train) [ 3306/19000]  lr: 8.5971e-05  eta: 0:17:04  time: 0.0721  data_time: 0.0097  memory: 866  loss: 0.0174  decode.loss_focal: 0.0030  decode.loss_dice: 0.0144  decode.acc_seg: 98.7505
+2026/04/10 16:13:43 - mmengine - INFO - per class results:
+2026/04/10 16:13:43 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.63 | 98.16 |
+|    cat     | 41.33 | 29.99 |
+|    dog     | 50.26 | 54.89 |
++------------+-------+-------+
+2026/04/10 16:13:43 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8800  mDice: 62.7400  mAcc: 61.0100  data_time: 0.0097  time: 0.0248
+2026/04/10 16:13:46 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:46 - mmengine - INFO - Iter(train) [ 3344/19000]  lr: 8.5804e-05  eta: 0:17:03  time: 0.0662  data_time: 0.0092  memory: 866  loss: 0.0197  decode.loss_focal: 0.0035  decode.loss_dice: 0.0162  decode.acc_seg: 96.5140
+2026/04/10 16:13:46 - mmengine - INFO - per class results:
+2026/04/10 16:13:46 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.56 |  98.2 |
+|    cat     | 40.76 | 29.62 |
+|    dog     | 48.59 | 51.83 |
++------------+-------+-------+
+2026/04/10 16:13:46 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7600  mDice: 61.9700  mAcc: 59.8800  data_time: 0.0101  time: 0.0268
+2026/04/10 16:13:49 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:49 - mmengine - INFO - Iter(train) [ 3382/19000]  lr: 8.5638e-05  eta: 0:17:00  time: 0.0581  data_time: 0.0068  memory: 866  loss: 0.0192  decode.loss_focal: 0.0035  decode.loss_dice: 0.0157  decode.acc_seg: 98.4903
+2026/04/10 16:13:49 - mmengine - INFO - per class results:
+2026/04/10 16:13:49 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.59 | 98.07 |
+|    cat     | 41.37 | 30.65 |
+|    dog     | 48.68 | 52.57 |
++------------+-------+-------+
+2026/04/10 16:13:49 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7500  mDice: 62.2100  mAcc: 60.4300  data_time: 0.0089  time: 0.0237
+2026/04/10 16:13:51 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:51 - mmengine - INFO - Iter(train) [ 3420/19000]  lr: 8.5471e-05  eta: 0:16:56  time: 0.0607  data_time: 0.0074  memory: 866  loss: 0.0198  decode.loss_focal: 0.0035  decode.loss_dice: 0.0163  decode.acc_seg: 98.5510
+2026/04/10 16:13:52 - mmengine - INFO - per class results:
+2026/04/10 16:13:52 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.55 | 97.85 |
+|    cat     | 44.09 | 34.47 |
+|    dog     | 48.65 | 51.28 |
++------------+-------+-------+
+2026/04/10 16:13:52 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7500  mDice: 63.1000  mAcc: 61.2000  data_time: 0.0083  time: 0.0227
+2026/04/10 16:13:54 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:54 - mmengine - INFO - Iter(train) [ 3458/19000]  lr: 8.5305e-05  eta: 0:16:53  time: 0.0597  data_time: 0.0075  memory: 866  loss: 0.0199  decode.loss_focal: 0.0033  decode.loss_dice: 0.0166  decode.acc_seg: 98.2760
+2026/04/10 16:13:54 - mmengine - INFO - per class results:
+2026/04/10 16:13:54 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.59 | 98.06 |
+|    cat     | 41.19 | 30.08 |
+|    dog     | 47.94 | 52.61 |
++------------+-------+-------+
+2026/04/10 16:13:54 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7000  mDice: 61.9100  mAcc: 60.2500  data_time: 0.0076  time: 0.0210
+2026/04/10 16:13:57 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:13:57 - mmengine - INFO - Iter(train) [ 3496/19000]  lr: 8.5138e-05  eta: 0:16:52  time: 0.0759  data_time: 0.0107  memory: 866  loss: 0.0238  decode.loss_focal: 0.0051  decode.loss_dice: 0.0186  decode.acc_seg: 98.0508
+2026/04/10 16:13:58 - mmengine - INFO - per class results:
+2026/04/10 16:13:58 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.64 |  98.2 |
+|    cat     | 34.26 | 22.88 |
+|    dog     | 48.91 |  57.5 |
++------------+-------+-------+
+2026/04/10 16:13:58 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5600  mDice: 59.9400  mAcc: 59.5300  data_time: 0.0252  time: 0.0410
+2026/04/10 16:14:00 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:00 - mmengine - INFO - Iter(train) [ 3534/19000]  lr: 8.4971e-05  eta: 0:16:50  time: 0.0661  data_time: 0.0092  memory: 866  loss: 0.0200  decode.loss_focal: 0.0044  decode.loss_dice: 0.0156  decode.acc_seg: 98.5700
+2026/04/10 16:14:01 - mmengine - INFO - per class results:
+2026/04/10 16:14:01 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 | 98.05 |
+|    cat     | 35.49 | 24.17 |
+|    dog     | 49.51 | 59.37 |
++------------+-------+-------+
+2026/04/10 16:14:01 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5900  mDice: 60.5600  mAcc: 60.5300  data_time: 0.0103  time: 0.0249
+2026/04/10 16:14:03 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:03 - mmengine - INFO - Iter(train) [ 3572/19000]  lr: 8.4804e-05  eta: 0:16:49  time: 0.0721  data_time: 0.0093  memory: 866  loss: 0.0209  decode.loss_focal: 0.0038  decode.loss_dice: 0.0171  decode.acc_seg: 98.2745
+2026/04/10 16:14:04 - mmengine - INFO - per class results:
+2026/04/10 16:14:04 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.7 | 97.99 |
+|    cat     | 37.01 | 26.32 |
+|    dog     |  48.5 | 56.73 |
++------------+-------+-------+
+2026/04/10 16:14:04 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.5600  mDice: 60.7400  mAcc: 60.3400  data_time: 0.0103  time: 0.0250
+2026/04/10 16:14:06 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:06 - mmengine - INFO - Iter(train) [ 3610/19000]  lr: 8.4637e-05  eta: 0:16:46  time: 0.0475  data_time: 0.0070  memory: 866  loss: 0.0205  decode.loss_focal: 0.0033  decode.loss_dice: 0.0172  decode.acc_seg: 98.3780
+2026/04/10 16:14:06 - mmengine - INFO - per class results:
+2026/04/10 16:14:06 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.66 | 98.04 |
+|    cat     | 39.75 | 28.94 |
+|    dog     | 49.11 | 55.06 |
++------------+-------+-------+
+2026/04/10 16:14:06 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7100  mDice: 61.8400  mAcc: 60.6800  data_time: 0.0092  time: 0.0235
+2026/04/10 16:14:09 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:09 - mmengine - INFO - Iter(train) [ 3648/19000]  lr: 8.4470e-05  eta: 0:16:43  time: 0.0611  data_time: 0.0071  memory: 866  loss: 0.0201  decode.loss_focal: 0.0044  decode.loss_dice: 0.0157  decode.acc_seg: 98.7395
+2026/04/10 16:14:09 - mmengine - INFO - per class results:
+2026/04/10 16:14:09 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 98.09 |
+|    cat     |  43.9 | 33.24 |
+|    dog     |  50.4 | 54.29 |
++------------+-------+-------+
+2026/04/10 16:14:09 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0000  mDice: 63.6700  mAcc: 61.8700  data_time: 0.0091  time: 0.0238
+2026/04/10 16:14:12 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:12 - mmengine - INFO - Iter(train) [ 3686/19000]  lr: 8.4303e-05  eta: 0:16:41  time: 0.0660  data_time: 0.0092  memory: 866  loss: 0.0199  decode.loss_focal: 0.0038  decode.loss_dice: 0.0161  decode.acc_seg: 98.5218
+2026/04/10 16:14:12 - mmengine - INFO - per class results:
+2026/04/10 16:14:12 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.68 | 98.17 |
+|    cat     | 40.46 | 29.38 |
+|    dog     |  52.0 | 57.16 |
++------------+-------+-------+
+2026/04/10 16:14:12 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9500  mDice: 63.0400  mAcc: 61.5700  data_time: 0.0093  time: 0.0244
+2026/04/10 16:14:15 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:15 - mmengine - INFO - Iter(train) [ 3724/19000]  lr: 8.4136e-05  eta: 0:16:38  time: 0.0586  data_time: 0.0073  memory: 866  loss: 0.0179  decode.loss_focal: 0.0033  decode.loss_dice: 0.0146  decode.acc_seg: 98.7841
+2026/04/10 16:14:15 - mmengine - INFO - per class results:
+2026/04/10 16:14:15 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.6 | 97.83 |
+|    cat     | 40.78 | 30.18 |
+|    dog     | 50.47 | 57.36 |
++------------+-------+-------+
+2026/04/10 16:14:15 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7000  mDice: 62.6200  mAcc: 61.7900  data_time: 0.0091  time: 0.0263
+2026/04/10 16:14:18 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:18 - mmengine - INFO - Iter(train) [ 3762/19000]  lr: 8.3969e-05  eta: 0:16:35  time: 0.0538  data_time: 0.0071  memory: 866  loss: 0.0178  decode.loss_focal: 0.0033  decode.loss_dice: 0.0145  decode.acc_seg: 98.6163
+2026/04/10 16:14:18 - mmengine - INFO - per class results:
+2026/04/10 16:14:18 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 98.36 |
+|    cat     | 40.86 | 29.85 |
+|    dog     | 51.44 | 54.44 |
++------------+-------+-------+
+2026/04/10 16:14:18 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0300  mDice: 63.0100  mAcc: 60.8900  data_time: 0.0102  time: 0.0245
+2026/04/10 16:14:20 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:20 - mmengine - INFO - Iter(train) [ 3800/19000]  lr: 8.3801e-05  eta: 0:16:31  time: 0.0598  data_time: 0.0074  memory: 866  loss: 0.0157  decode.loss_focal: 0.0030  decode.loss_dice: 0.0128  decode.acc_seg: 98.9054
+2026/04/10 16:14:20 - mmengine - INFO - Saving checkpoint at 100 epochs
+2026/04/10 16:14:21 - mmengine - INFO - per class results:
+2026/04/10 16:14:21 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background |  96.6 | 98.18 |
+|    cat     | 40.33 | 30.47 |
+|    dog     | 49.11 | 50.81 |
++------------+-------+-------+
+2026/04/10 16:14:21 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7600  mDice: 62.0200  mAcc: 59.8200  data_time: 0.0246  time: 0.0389
+2026/04/10 16:14:23 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:23 - mmengine - INFO - Iter(train) [ 3838/19000]  lr: 8.3634e-05  eta: 0:16:28  time: 0.0524  data_time: 0.0066  memory: 866  loss: 0.0157  decode.loss_focal: 0.0027  decode.loss_dice: 0.0130  decode.acc_seg: 98.7617
+2026/04/10 16:14:24 - mmengine - INFO - per class results:
+2026/04/10 16:14:24 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.74 | 98.21 |
+|    cat     | 36.85 | 25.58 |
+|    dog     | 50.54 | 58.41 |
++------------+-------+-------+
+2026/04/10 16:14:24 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.7800  mDice: 61.3800  mAcc: 60.7300  data_time: 0.0079  time: 0.0215
+2026/04/10 16:14:26 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:26 - mmengine - INFO - Iter(train) [ 3876/19000]  lr: 8.3466e-05  eta: 0:16:26  time: 0.0694  data_time: 0.0095  memory: 866  loss: 0.0179  decode.loss_focal: 0.0031  decode.loss_dice: 0.0148  decode.acc_seg: 98.5627
+2026/04/10 16:14:27 - mmengine - INFO - per class results:
+2026/04/10 16:14:27 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.75 | 97.84 |
+|    cat     | 43.59 | 33.91 |
+|    dog     |  51.9 | 57.42 |
++------------+-------+-------+
+2026/04/10 16:14:27 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9600  mDice: 64.0800  mAcc: 63.0600  data_time: 0.0100  time: 0.0245
+2026/04/10 16:14:29 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:29 - mmengine - INFO - Iter(train) [ 3914/19000]  lr: 8.3299e-05  eta: 0:16:25  time: 0.0702  data_time: 0.0099  memory: 866  loss: 0.0153  decode.loss_focal: 0.0026  decode.loss_dice: 0.0126  decode.acc_seg: 98.6539
+2026/04/10 16:14:30 - mmengine - INFO - per class results:
+2026/04/10 16:14:30 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.77 | 98.21 |
+|    cat     | 41.64 | 29.89 |
+|    dog     | 49.11 | 55.17 |
++------------+-------+-------+
+2026/04/10 16:14:30 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9300  mDice: 62.5100  mAcc: 61.0900  data_time: 0.0104  time: 0.0264
+2026/04/10 16:14:33 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:33 - mmengine - INFO - Iter(train) [ 3952/19000]  lr: 8.3131e-05  eta: 0:16:23  time: 0.0726  data_time: 0.0096  memory: 866  loss: 0.0179  decode.loss_focal: 0.0030  decode.loss_dice: 0.0148  decode.acc_seg: 98.6539
+2026/04/10 16:14:33 - mmengine - INFO - per class results:
+2026/04/10 16:14:33 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 97.94 |
+|    cat     | 46.29 | 37.23 |
+|    dog     | 48.25 | 49.98 |
++------------+-------+-------+
+2026/04/10 16:14:33 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9500  mDice: 63.7500  mAcc: 61.7100  data_time: 0.0100  time: 0.0248
+2026/04/10 16:14:36 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:36 - mmengine - INFO - Iter(train) [ 3990/19000]  lr: 8.2963e-05  eta: 0:16:21  time: 0.0714  data_time: 0.0093  memory: 866  loss: 0.0185  decode.loss_focal: 0.0033  decode.loss_dice: 0.0151  decode.acc_seg: 97.4972
+2026/04/10 16:14:36 - mmengine - INFO - per class results:
+2026/04/10 16:14:36 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.68 |  98.1 |
+|    cat     | 41.79 | 30.59 |
+|    dog     |  50.5 | 55.93 |
++------------+-------+-------+
+2026/04/10 16:14:36 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9100  mDice: 62.9900  mAcc: 61.5400  data_time: 0.0233  time: 0.0390
+2026/04/10 16:14:37 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:39 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:39 - mmengine - INFO - Iter(train) [ 4028/19000]  lr: 8.2796e-05  eta: 0:16:20  time: 0.0727  data_time: 0.0097  memory: 866  loss: 0.0183  decode.loss_focal: 0.0036  decode.loss_dice: 0.0147  decode.acc_seg: 98.6017
+2026/04/10 16:14:39 - mmengine - INFO - per class results:
+2026/04/10 16:14:39 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 98.22 |
+|    cat     | 40.94 | 29.37 |
+|    dog     | 50.18 | 55.66 |
++------------+-------+-------+
+2026/04/10 16:14:39 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9300  mDice: 62.6100  mAcc: 61.0800  data_time: 0.0109  time: 0.0280
+2026/04/10 16:14:42 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:42 - mmengine - INFO - Iter(train) [ 4066/19000]  lr: 8.2628e-05  eta: 0:16:18  time: 0.0639  data_time: 0.0085  memory: 866  loss: 0.0161  decode.loss_focal: 0.0026  decode.loss_dice: 0.0135  decode.acc_seg: 98.6072
+2026/04/10 16:14:43 - mmengine - INFO - per class results:
+2026/04/10 16:14:43 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.72 | 97.95 |
+|    cat     | 41.47 | 30.33 |
+|    dog     | 51.34 |  59.0 |
++------------+-------+-------+
+2026/04/10 16:14:43 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.8800  mDice: 63.1800  mAcc: 62.4200  data_time: 0.0085  time: 0.0246
+2026/04/10 16:14:45 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:45 - mmengine - INFO - Iter(train) [ 4104/19000]  lr: 8.2460e-05  eta: 0:16:15  time: 0.0599  data_time: 0.0072  memory: 866  loss: 0.0158  decode.loss_focal: 0.0029  decode.loss_dice: 0.0129  decode.acc_seg: 98.4912
+2026/04/10 16:14:45 - mmengine - INFO - per class results:
+2026/04/10 16:14:45 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.73 |  98.1 |
+|    cat     | 41.32 | 29.83 |
+|    dog     | 50.45 | 57.11 |
++------------+-------+-------+
+2026/04/10 16:14:45 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9100  mDice: 62.8300  mAcc: 61.6800  data_time: 0.0092  time: 0.0264
+2026/04/10 16:14:48 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:48 - mmengine - INFO - Iter(train) [ 4142/19000]  lr: 8.2291e-05  eta: 0:16:13  time: 0.0592  data_time: 0.0071  memory: 866  loss: 0.0160  decode.loss_focal: 0.0028  decode.loss_dice: 0.0133  decode.acc_seg: 97.3364
+2026/04/10 16:14:48 - mmengine - INFO - per class results:
+2026/04/10 16:14:48 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.74 | 98.21 |
+|    cat     | 43.35 | 32.39 |
+|    dog     | 50.17 | 53.78 |
++------------+-------+-------+
+2026/04/10 16:14:48 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0300  mDice: 63.4200  mAcc: 61.4600  data_time: 0.0089  time: 0.0251
+2026/04/10 16:14:51 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:51 - mmengine - INFO - Iter(train) [ 4180/19000]  lr: 8.2123e-05  eta: 0:16:10  time: 0.0770  data_time: 0.0109  memory: 866  loss: 0.0165  decode.loss_focal: 0.0030  decode.loss_dice: 0.0135  decode.acc_seg: 98.6419
+2026/04/10 16:14:51 - mmengine - INFO - per class results:
+2026/04/10 16:14:51 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.71 | 98.14 |
+|    cat     | 41.74 |  30.4 |
+|    dog     | 51.62 | 57.27 |
++------------+-------+-------+
+2026/04/10 16:14:51 - mmengine - INFO - Iter(val) [15/15]    aAcc: 91.9900  mDice: 63.3600  mAcc: 61.9400  data_time: 0.0107  time: 0.0257
+2026/04/10 16:14:54 - mmengine - INFO - Exp name: segformer_b0_conf_20260410_160927
+2026/04/10 16:14:54 - mmengine - INFO - Iter(train) [ 4218/19000]  lr: 8.1955e-05  eta: 0:16:08  time: 0.0700  data_time: 0.0096  memory: 866  loss: 0.0148  decode.loss_focal: 0.0026  decode.loss_dice: 0.0122  decode.acc_seg: 98.7943
+2026/04/10 16:14:54 - mmengine - INFO - per class results:
+2026/04/10 16:14:54 - mmengine - INFO - 
++------------+-------+-------+
+|   Class    |  Dice |  Acc  |
++------------+-------+-------+
+| background | 96.69 |  98.3 |
+|    cat     | 43.29 |  32.2 |
+|    dog     | 51.04 | 53.34 |
++------------+-------+-------+
+2026/04/10 16:14:54 - mmengine - INFO - Iter(val) [15/15]    aAcc: 92.0900  mDice: 63.6700  mAcc: 61.2800  data_time: 0.0099  time: 0.0250
