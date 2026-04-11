@@ -12,11 +12,11 @@ wheels/
 # uv files
 uv.lock
 
-# datasets
-data/*
-
 # mlflow
 practicum_work/mlflow/*
+
+# datasets
+data/*
 
 data/src/img/train/*
 data/src/img/test/*
