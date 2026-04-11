@@ -15,6 +15,9 @@ uv.lock
 # datasets
 data/*
 
+# mlflow
+practicum_work/mlflow/*
+
 data/src/img/train/*
 data/src/img/test/*
 data/src/img/val/*
