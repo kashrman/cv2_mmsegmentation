@@ -1,7 +1,10 @@
   
 Отчет о проделанной работе в требуемом формате.      
   
-Эксперименты в локально поднятом mlflow, так как clearml больше недоступен. Смотри результаты в practicum_work\mlflow    
+Эксперименты в локально поднятом mlflow, так как clearml больше недоступен. 
+
+https://disk.yandex.ru/d/HyVDt708tXYYrw
+
 пример как поднять: mlflow server --backend-store-uri sqlite:///mlflow/mlflow.db --default-artifact-root mlflow/artifact --host 127.0.0.1 --port 5000    
   
   
