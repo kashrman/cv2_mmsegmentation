@@ -3,8 +3,8 @@
 
 import os
 
-from .conf import DATA_SRC_ROOT, DATA_ERR_ROOT
-from .data_filter import DataFilter
+from conf import DATA_SRC_ROOT, DATA_ERR_ROOT
+from data_filter import DataFilter
 
 
 if __name__ == "__main__":

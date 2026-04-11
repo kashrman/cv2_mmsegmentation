@@ -12,7 +12,7 @@ from PIL import Image
 import pandas as pd
 import io
 
-from .conf import DATA_CLEARED_ROOT, DATA_ERR_ROOT, CLASS_COLORS
+from conf import DATA_CLEARED_ROOT, DATA_ERR_ROOT, CLASS_COLORS
 
 
 class DataFilter:

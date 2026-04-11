@@ -6,9 +6,9 @@ import cv2
 import numpy as np
 from ultralytics.data.annotator import auto_annotate
 
-from .conf import DATA_ADD_ROOT, DATA_SRC_ROOT, DATA_ERR_ROOT
-from .visualize_samples_with_masks import visualize_samples_with_masks
-from .data_filter import DataFilter
+from conf import DATA_ADD_ROOT, DATA_SRC_ROOT, DATA_ERR_ROOT
+from visualize_samples_with_masks import visualize_samples_with_masks
+from data_filter import DataFilter
 
 
 err_img_dir = f'{DATA_ERR_ROOT}/img/train'

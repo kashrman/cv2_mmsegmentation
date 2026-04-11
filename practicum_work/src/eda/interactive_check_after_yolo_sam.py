@@ -3,8 +3,8 @@
 
 import os
 
-from .conf import DATA_SRC_ROOT, DATA_ERR_ROOT, DATA_ADD_ROOT
-from .data_filter import DataFilter
+from conf import DATA_SRC_ROOT, DATA_ERR_ROOT, DATA_ADD_ROOT
+from data_filter import DataFilter
 
 add_masks_input_dir = f'{DATA_ADD_ROOT}/img/train'
 add_masks_yolo_sam_dir = f'{DATA_ADD_ROOT}/yolo_sam_labels/train'

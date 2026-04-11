@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 from PIL import Image 
 import cv2
 
-from .conf import DATA_SRC_ROOT, EDA_RESULTS, CLASS_NAMES
+from conf import DATA_SRC_ROOT, EDA_RESULTS, CLASS_NAMES
 
 
 def load_mask_annotations(mask_dir):

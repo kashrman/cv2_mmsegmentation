@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 from PIL import Image 
 import cv2
 
-from .conf import DATA_SRC_ROOT, EDA_RESULTS, CLASS_NAMES, CLASS_COLORS
+from conf import DATA_SRC_ROOT, EDA_RESULTS, CLASS_NAMES, CLASS_COLORS
 
 
 def visualize_samples_with_masks(img_dir, mask_dir, dataset_name, num_samples):
